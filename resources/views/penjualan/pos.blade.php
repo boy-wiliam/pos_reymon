@@ -107,7 +107,7 @@
                             <td>Rp.{{ number_format($item->produk->harga_jual) }}</td>
                             <td>
                                 <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
-                                    @csrf @method('PUT')
+                                   
                                     <input type="number"
                                            name="quantity"
                                            value="{{ $item->kuantitas }}"
@@ -145,7 +145,7 @@
                         action="{{ route('penjualan.update', $sale->id) }}"
                         onsubmit="return confirm('Yakin ingin checkout?')" class="mt-2">
                     @csrf
-                    @method('PUT')
+                    
                     <select name="payment_method" class="form-select mb-2">
                         <option value="">Pilih Pembayaran</option>
                         <option value="CASH">CASH</option>
