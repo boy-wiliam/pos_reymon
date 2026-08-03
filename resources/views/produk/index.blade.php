@@ -8,23 +8,30 @@
 
 <style>
     :root {
-        --primary-color: #059669;
-        --primary-dark: #047857;
-        --primary-light: #ecfdf5;
-        --accent-glow: rgba(5, 150, 105, 0.15);
-        --text-main: #0f172a;
-        --text-muted: #64748b;
-        --radius-card: 28px;
-        --radius-element: 16px;
+        --primary-color: #10b981;
+        --primary-dark: #059669;
+        --primary-light: rgba(16, 185, 129, 0.1);
+        --accent-glow: rgba(16, 185, 129, 0.25);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --radius-card: 24px;
+        --radius-element: 14px;
     }
 
     body {
-        background-color: #f8fafc;
+        /* Background Gelap Elegan dengan Multi-Glow Mesh */
+        background-color: #0f172a;
+        background-image: 
+            radial-gradient(at 10% 20%, rgba(5, 150, 105, 0.25) 0px, transparent 50%),
+            radial-gradient(at 90% 10%, rgba(14, 116, 144, 0.2) 0px, transparent 50%),
+            radial-gradient(at 50% 90%, rgba(15, 23, 42, 0.8) 0px, transparent 50%);
+        background-attachment: fixed;
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        color: var(--text-main);
     }
 
     .page-title {
-        color: var(--text-main);
+        color: #ffffff;
         font-size: 30px;
         font-weight: 800;
         letter-spacing: -0.75px;
@@ -36,13 +43,45 @@
         font-weight: 500;
     }
 
-    /* Kartu Utama Mewah */
+    /* Kartu Statistik Mini */
+    .stat-card {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 20px 24px;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+    }
+
+    /* Kartu Utama */
     .page-card {
-        background: #ffffff;
+        background: rgba(30, 41, 59, 0.75);
+        backdrop-filter: blur(16px);
         border-radius: var(--radius-card);
         padding: 35px;
-        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05), 0 0 1px 1px rgba(0, 0, 0, 0.02);
-        border: 1px solid rgba(226, 232, 240, 0.8);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         position: relative;
         overflow: hidden;
     }
@@ -54,7 +93,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #059669, #34d399, #047857);
+        background: linear-gradient(90deg, #10b981, #34d399, #059669);
     }
 
     .btn-modern {
@@ -69,21 +108,22 @@
     }
 
     .btn-success.btn-modern {
-        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         border: none;
-        box-shadow: 0 8px 20px -4px rgba(5, 150, 105, 0.35);
+        color: white;
+        box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
     }
 
     .btn-success.btn-modern:hover {
         transform: translateY(-3px);
-        box-shadow: 0 12px 25px -4px rgba(5, 150, 105, 0.45);
-        background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        box-shadow: 0 12px 25px -4px rgba(16, 185, 129, 0.6);
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
     }
 
     /* Kotak Pencarian Elegan */
     .search-box {
-        background: #f8fafc;
-        border: 1.5px solid #e2e8f0;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1.5px solid rgba(255, 255, 255, 0.1);
         border-radius: var(--radius-element);
         overflow: hidden;
         transition: all 0.3s ease;
@@ -91,8 +131,8 @@
 
     .search-box:focus-within {
         border-color: var(--primary-color);
-        background: #ffffff;
-        box-shadow: 0 0 0 5px var(--accent-glow);
+        background: rgba(15, 23, 42, 0.9);
+        box-shadow: 0 0 0 4px var(--accent-glow);
     }
 
     .search-box .form-control {
@@ -100,11 +140,16 @@
         padding: 14px 20px;
         background: transparent;
         font-size: 14px;
-        color: var(--text-main);
+        color: #ffffff;
+    }
+
+    .search-box .form-control::placeholder {
+        color: #64748b;
     }
 
     .search-box .form-control:focus {
         box-shadow: none;
+        color: #ffffff;
     }
 
     /* Tabel Estetik */
@@ -115,7 +160,7 @@
     }
 
     .table-modern thead th {
-        background: #f1f5f9;
+        background: rgba(15, 23, 42, 0.5);
         color: var(--text-muted);
         font-weight: 700;
         text-transform: uppercase;
@@ -136,36 +181,35 @@
     }
 
     .table-modern tbody tr {
-        background: #ffffff;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+        background: rgba(15, 23, 42, 0.4);
         transition: all 0.2s ease;
     }
 
     .table-modern tbody tr td {
         padding: 16px 18px;
-        color: #334155;
+        color: #e2e8f0;
         font-size: 14px;
-        border-top: 1px solid #f1f5f9;
-        border-bottom: 1px solid #f1f5f9;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         vertical-align: middle;
     }
 
     .table-modern tbody tr td:first-child {
-        border-left: 1px solid #f1f5f9;
+        border-left: 1px solid rgba(255, 255, 255, 0.04);
         border-top-left-radius: var(--radius-element);
         border-bottom-left-radius: var(--radius-element);
     }
 
     .table-modern tbody tr td:last-child {
-        border-right: 1px solid #f1f5f9;
+        border-right: 1px solid rgba(255, 255, 255, 0.04);
         border-top-right-radius: var(--radius-element);
         border-bottom-right-radius: var(--radius-element);
     }
 
     .table-modern tbody tr:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-        background-color: #fafdfb;
+        background-color: rgba(30, 41, 59, 0.9);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     /* Foto Produk Wrapper */
@@ -174,22 +218,22 @@
         height: 55px;
         border-radius: 12px;
         overflow: hidden;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: #f8fafc;
+        background: rgba(15, 23, 42, 0.6);
     }
 
     /* Badge Stok Berkelas */
     .badge-stock {
-        background: var(--primary-light);
-        color: var(--primary-dark);
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
         font-weight: 700;
         font-size: 12px;
         padding: 6px 14px;
         border-radius: 30px;
-        border: 1px solid rgba(5, 150, 105, 0.2);
+        border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     /* Tombol Aksi */
@@ -205,36 +249,33 @@
     }
 
     .btn-view {
-        background: #eff6ff;
-        color: #3b82f6;
-        border: 1px solid #dbeafe;
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.3);
     }
     .btn-view:hover {
         background: #3b82f6;
         color: white;
-        transform: translateY(-1px);
     }
 
     .btn-edit {
-        background: #fffbeb;
-        color: #d97706;
-        border: 1px solid #fef3c7;
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(245, 158, 11, 0.3);
     }
     .btn-edit:hover {
         background: #f59e0b;
         color: white;
-        transform: translateY(-1px);
     }
 
     .btn-delete {
-        background: #fef2f2;
-        color: #dc2626;
-        border: 1px solid #fee2e2;
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
     }
     .btn-delete:hover {
-        background: #dc2626;
+        background: #ef4444;
         color: white;
-        transform: translateY(-1px);
     }
 
     /* Pagination Kustom */
@@ -247,26 +288,26 @@
     .page-item .page-link {
         border-radius: 12px;
         margin: 0 4px;
-        color: var(--text-main);
-        border: 1px solid #e2e8f0;
+        color: #cbd5e1;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 13px;
         font-weight: 600;
         padding: 10px 16px;
-        background: #ffffff;
+        background: rgba(15, 23, 42, 0.6);
         transition: all 0.2s ease;
     }
 
     .page-item.active .page-link {
-        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         border-color: transparent;
         color: white;
-        box-shadow: 0 6px 15px rgba(5, 150, 105, 0.3);
+        box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
     }
 
     .page-item .page-link:hover:not(.active) {
-        background-color: #f8fafc;
-        color: var(--primary-dark);
-        border-color: #cbd5e1;
+        background-color: rgba(30, 41, 59, 0.9);
+        color: #34d399;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 </style>
 
@@ -285,6 +326,37 @@
             Tambah Produk Baru
         </a>
         @endcan
+    </div>
+
+    <!-- Statistik Singkat -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div>
+                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">TOTAL PRODUK</span>
+                    <h4 class="fw-bold mb-0 text-white">{{ method_exists($products, 'total') ? $products->total() : count($products) }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">💼</div>
+                <div>
+                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">STATUS INVENTARIS</span>
+                    <h4 class="fw-bold mb-0 text-white">Terkontrol</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⚡</div>
+                <div>
+                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">SISTEM GUDANG</span>
+                    <h4 class="fw-bold mb-0 text-white">Aktif & Sinkron</h4>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Card Utama -->
@@ -330,7 +402,7 @@
                             {{ $products->firstItem() + $loop->index }}
                         </td>
                         <td>
-                            <div class="fw-semibold text-dark">{{ optional($product->user)->name ?? 'Sistem' }}</div>
+                            <div class="fw-semibold text-white">{{ optional($product->user)->name ?? 'Sistem' }}</div>
                         </td>
                         <td class="text-center">
                             <div class="product-img-wrapper">
@@ -347,7 +419,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="fw-bold text-dark" style="font-size: 14.5px;">{{ $product->nama }}</div>
+                            <div class="fw-bold text-white" style="font-size: 14.5px;">{{ $product->nama }}</div>
                         </td>
                         <td>
                             <span class="text-secondary">Rp {{ number_format($product->harga_beli,0,',','.') }}</span>
@@ -401,7 +473,7 @@
                         <td colspan="8" class="text-center py-5">
                             <div class="text-muted py-4">
                                 <div style="font-size: 48px;" class="mb-3">📦</div>
-                                <h5 class="fw-bold text-dark mb-1">Belum ada data produk tersedia</h5>
+                                <h5 class="fw-bold text-white mb-1">Belum ada data produk tersedia</h5>
                                 <p class="text-muted mb-0">Silakan tambahkan produk baru melalui tombol di pojok kanan atas.</p>
                             </div>
                         </td>
