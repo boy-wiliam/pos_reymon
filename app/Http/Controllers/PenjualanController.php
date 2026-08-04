@@ -6,7 +6,7 @@ use App\Http\Requests\SearchRequest;
 use App\Models\Penjualan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
-use  Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PenjualanController extends Controller
@@ -17,24 +17,24 @@ class PenjualanController extends Controller
     public function index(SearchRequest $request)
     {
         $user = Auth::user();
-        $keyword = $request->input('search');
+        $keyword = $request->search;
 
-        $sales = Penjualan::query()
+        $sales = Penjualan::with('user')
 
-        // Filter berdasarkan role
             ->when($user->role->name === 'kasir', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
-        // Search nama user
-        ->when($keyword, function ($query) use ($keyword) {
-            $query->whereHas('user', function ($q) use ($keyword) {
-                $q->where('name', 'like', '%' . $keyword . '%');
-            });
-        })
+
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('user', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
+            })
+
             ->latest()
             ->paginate(10)
             ->withQueryString();
-            
+
         return view('penjualan.index', compact('sales'));
     }
 
@@ -54,19 +54,15 @@ class PenjualanController extends Controller
             ]
         );
 
-        $keyword = $request->input('search');
+        $keyword = $request->search;
 
-        if($keyword) {
-            $products = Produk::when($keyword, function ($query) use ($keyword) {
-                $query->where('nama', 'like', '%' . $keyword . '%');
+        $products = Produk::when($keyword, function ($query) use ($keyword) {
+                $query->where('nama', 'like', "%{$keyword}%");
             })
             ->orderBy('nama')
             ->get();
-        } else {
-            $products = Produk::orderBy('nama')->get();
-        }
 
-        $mode = 'create' ;
+        $mode = 'create';
 
         return view('penjualan.pos', compact('sale', 'products', 'mode'));
     }
@@ -88,8 +84,8 @@ class PenjualanController extends Controller
 
         $sale->load('itemPenjualan');
         $products = Produk::orderBy('nama')->get();
-        $mode ='view';
-        
+        $mode = 'view';
+
         return view('penjualan.detail', compact('sale', 'products', 'mode'));
     }
 
@@ -122,13 +118,12 @@ class PenjualanController extends Controller
             return back()->with('errors', 'Transaksi sudah diproses');
         }
 
-        if ($penjualan->itemPenjualan()->count() === 0) {
+        if ($penjualan->itemPenjualan()->count() == 0) {
             return back()->with('errors', 'Keranjang masih kosong');
         }
 
         DB::transaction(function () use ($penjualan, $request) {
 
-            // Hitung ulang total (anti manipulasi)
             $total = $penjualan->itemPenjualan()->sum('subtotal');
 
             $penjualan->update([
@@ -141,7 +136,7 @@ class PenjualanController extends Controller
         return redirect()
             ->route('penjualan.index')
             ->with('success', 'Transaksi berhasil diselesaikan');
-        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -149,23 +144,21 @@ class PenjualanController extends Controller
     public function destroy(Penjualan $penjualan)
     {
         $this->authorize('delete', $penjualan);
-        
-        // Pastikan hanya transaksi OPEN
+
         if ($penjualan->status !== 'OPEN') {
-            return redirect()->route('penjualan.index')->with('errors', 'Transaksi sudah selesai tidak bisa dibatalkan');
+            return redirect()
+                ->route('penjualan.index')
+                ->with('errors', 'Transaksi sudah selesai tidak bisa dibatalkan');
         }
 
         DB::transaction(function () use ($penjualan) {
 
-            foreach ($penjualan->ItemPenjualan as $item) {
-                // kembalikan stok
+            foreach ($penjualan->itemPenjualan as $item) {
                 $item->produk->increment('stok', $item->kuantitas);
             }
 
-            // hapus item
-            $penjualan->ItemPenjualan()->delete();
+            $penjualan->itemPenjualan()->delete();
 
-            // hapus penjualan
             $penjualan->delete();
         });
 

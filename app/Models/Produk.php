@@ -10,7 +10,7 @@ class Produk extends Model
     use HasFactory;
 
     protected $table = 'produk';
-    
+
     protected $fillable = [
         'user_id',
         'foto',
@@ -20,11 +20,18 @@ class Produk extends Model
         'stok',
     ];
 
-    public function user ()
+    /**
+     * Relasi ke User
+     */
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function itempenjualan ()
+
+    /**
+     * Relasi ke Item Penjualan
+     */
+    public function itemPenjualan()
     {
         return $this->hasMany(ItemPenjualan::class, 'produk_id');
     }

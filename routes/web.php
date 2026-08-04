@@ -8,32 +8,31 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 
-
-//route yang bisa diakses ketika user login
+// Route yang bisa diakses ketika user BELUM login
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
 });
 
-//route yang bisa diakses ketika user sudah login
+// Route yang hanya bisa diakses ketika user SUDAH login
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // Khusus Admin
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/users', [UserController::class, 'index'])->name ('users'); 
-        Route::get('/users/create', [UserController::class, 'create'])->name ('users.create'); 
-        Route::post('/users/store', [UserController::class, 'store'])->name ('users.store'); 
-        Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name ('users.edit'); 
-        Route::post('/users/update/{user}', [UserController::class, 'update'])->name ('users.update'); 
-        Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])->name ('users.destroy'); 
+        Route::get('/users', [UserController::class, 'index'])->name('users'); 
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+        Route::post('/users/store', [UserController::class, 'store'])->name('users.store'); 
+        Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit'); 
+        Route::post('/users/update/{user}', [UserController::class, 'update'])->name('users.update'); 
+        Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy'); 
+    });
 
-        });
-
+    // BIsa diakses Admin & Kasir
     Route::middleware('role:admin,kasir')->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
-        
     });
 });

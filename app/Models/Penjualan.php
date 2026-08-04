@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Penjualan extends Model
 {
     use HasFactory;
 
     protected $table = 'penjualan';
-    
+
     protected $fillable = [
         'user_id',
         'total_pembayaran',
@@ -18,11 +18,12 @@ class Penjualan extends Model
         'status',
     ];
 
-    public function user ()
+    public function user()
     {
-        return $this->belongsTo(user::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-    public function itempenjualan ()
+
+    public function itemPenjualan()
     {
         return $this->hasMany(ItemPenjualan::class, 'penjualan_id');
     }

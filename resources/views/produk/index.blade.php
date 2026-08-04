@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Produk')
+@section('title', 'Daftar Produk')
 
 @section('content')
 
@@ -8,306 +8,228 @@
 
 <style>
     :root {
-        --primary-color: #10b981;
-        --primary-dark: #059669;
-        --primary-light: rgba(16, 185, 129, 0.1);
-        --accent-glow: rgba(16, 185, 129, 0.25);
-        --text-main: #f8fafc;
-        --text-muted: #94a3b8;
-        --radius-card: 24px;
-        --radius-element: 14px;
+        --primary-indigo: #6366f1;
+        --primary-indigo-dark: #4f46e5;
+        --primary-indigo-light: rgba(99, 102, 241, 0.15);
+        --radius-card: 16px;
+        --radius-element: 10px;
     }
 
     body {
-        /* Background Gelap Elegan dengan Multi-Glow Mesh */
-        background-color: #0f172a;
+        background-color: #0d1117 !important;
         background-image: 
-            radial-gradient(at 10% 20%, rgba(5, 150, 105, 0.25) 0px, transparent 50%),
-            radial-gradient(at 90% 10%, rgba(14, 116, 144, 0.2) 0px, transparent 50%),
-            radial-gradient(at 50% 90%, rgba(15, 23, 42, 0.8) 0px, transparent 50%);
-        background-attachment: fixed;
+            radial-gradient(circle at 20% 10%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+            radial-gradient(circle at 80% 90%, rgba(79, 70, 229, 0.08) 0%, transparent 40%) !important;
+        background-attachment: fixed !important;
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        color: var(--text-main);
+        color: #f8fafc !important;
     }
 
     .page-title {
-        color: #ffffff;
-        font-size: 30px;
+        color: #ffffff !important;
+        font-size: 26px;
         font-weight: 800;
-        letter-spacing: -0.75px;
+        letter-spacing: -0.5px;
     }
 
     .page-subtitle {
-        color: var(--text-muted);
-        font-size: 14px;
-        font-weight: 500;
+        color: #94a3b8 !important;
+        font-size: 13.5px;
     }
 
-    /* Kartu Statistik Mini */
+    /* Stat Card */
     .stat-card {
-        background: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 20px 24px;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: #161b26 !important;
+        border-radius: var(--radius-card);
+        padding: 18px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
         display: flex;
         align-items: center;
         gap: 16px;
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(16, 185, 129, 0.4);
     }
 
     .stat-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
-        background: rgba(16, 185, 129, 0.15);
-        color: #34d399;
+        font-size: 20px;
+        background: rgba(99, 102, 241, 0.15);
+        color: #818cf8;
     }
 
-    /* Kartu Utama */
+    .stat-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        color: #64748b !important;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+
+    /* Main Card */
     .page-card {
-        background: rgba(30, 41, 59, 0.75);
-        backdrop-filter: blur(16px);
-        border-radius: var(--radius-card);
-        padding: 35px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        position: relative;
-        overflow: hidden;
+        background: #111622 !important;
+        border-radius: 20px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top: 2px solid var(--primary-indigo) !important;
     }
 
-    .page-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #10b981, #34d399, #059669);
-    }
-
-    .btn-modern {
+    /* Primary Button Indigo */
+    .btn-indigo {
+        background: var(--primary-indigo) !important;
+        color: #ffffff !important;
+        border: none !important;
         border-radius: var(--radius-element);
         font-weight: 600;
-        padding: 12px 22px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
+        padding: 10px 20px;
         font-size: 14px;
-    }
-
-    .btn-success.btn-modern {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        border: none;
-        color: white;
-        box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
-    }
-
-    .btn-success.btn-modern:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px -4px rgba(16, 185, 129, 0.6);
-        background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    }
-
-    /* Kotak Pencarian Elegan */
-    .search-box {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1.5px solid rgba(255, 255, 255, 0.1);
-        border-radius: var(--radius-element);
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .search-box:focus-within {
-        border-color: var(--primary-color);
-        background: rgba(15, 23, 42, 0.9);
-        box-shadow: 0 0 0 4px var(--accent-glow);
-    }
-
-    .search-box .form-control {
-        border: none;
-        padding: 14px 20px;
-        background: transparent;
-        font-size: 14px;
-        color: #ffffff;
-    }
-
-    .search-box .form-control::placeholder {
-        color: #64748b;
-    }
-
-    .search-box .form-control:focus {
-        box-shadow: none;
-        color: #ffffff;
-    }
-
-    /* Tabel Estetik */
-    .table-modern {
-        border-collapse: separate;
-        border-spacing: 0 8px;
-        width: 100%;
-    }
-
-    .table-modern thead th {
-        background: rgba(15, 23, 42, 0.5);
-        color: var(--text-muted);
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 11px;
-        letter-spacing: 1px;
-        padding: 14px 18px;
-        border: none;
-    }
-
-    .table-modern thead th:first-child {
-        border-top-left-radius: var(--radius-element);
-        border-bottom-left-radius: var(--radius-element);
-    }
-
-    .table-modern thead th:last-child {
-        border-top-right-radius: var(--radius-element);
-        border-bottom-right-radius: var(--radius-element);
-    }
-
-    .table-modern tbody tr {
-        background: rgba(15, 23, 42, 0.4);
         transition: all 0.2s ease;
     }
 
-    .table-modern tbody tr td {
-        padding: 16px 18px;
-        color: #e2e8f0;
+    .btn-indigo:hover {
+        background: var(--primary-indigo-dark) !important;
+        transform: translateY(-1px);
+    }
+
+    /* Search Box */
+    .search-box {
+        background: #0b0f19 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: var(--radius-element);
+        overflow: hidden;
+    }
+
+    .search-box .form-control {
+        border: none !important;
+        padding: 10px 16px;
+        background: transparent !important;
         font-size: 14px;
-        border-top: 1px solid rgba(255, 255, 255, 0.04);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        color: #ffffff !important;
+    }
+
+    .search-box .form-control::placeholder {
+        color: #475569 !important;
+    }
+
+    /* Table Matching Users Style */
+    .table-modern {
+        border-collapse: separate !important;
+        border-spacing: 0 12px !important;
+        width: 100%;
+        background: transparent !important;
+    }
+
+    .table-modern thead th {
+        background: transparent !important;
+        color: #94a3b8 !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.8px;
+        padding: 0 16px 8px 16px;
+        border: none !important;
+    }
+
+    /* White Card Rows */
+    .table-modern tbody tr {
+        background-color: #ffffff !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    .table-modern tbody tr td,
+    .table-modern tbody tr td * {
+        color: #0f172a !important;
+    }
+
+    .table-modern tbody tr td {
+        background-color: transparent !important;
+        padding: 14px 18px !important;
+        font-size: 13.5px;
+        border: none !important;
         vertical-align: middle;
     }
 
     .table-modern tbody tr td:first-child {
-        border-left: 1px solid rgba(255, 255, 255, 0.04);
-        border-top-left-radius: var(--radius-element);
-        border-bottom-left-radius: var(--radius-element);
+        border-top-left-radius: 12px !important;
+        border-bottom-left-radius: 12px !important;
     }
 
     .table-modern tbody tr td:last-child {
-        border-right: 1px solid rgba(255, 255, 255, 0.04);
-        border-top-right-radius: var(--radius-element);
-        border-bottom-right-radius: var(--radius-element);
+        border-top-right-radius: 12px !important;
+        border-bottom-right-radius: 12px !important;
     }
 
-    .table-modern tbody tr:hover {
-        transform: translateY(-2px);
-        background-color: rgba(30, 41, 59, 0.9);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Foto Produk Wrapper */
+    /* ==========================================
+       HD IMAGE OPTIMIZATION (Bikin Foto Tajam)
+       ========================================== */
     .product-img-wrapper {
-        width: 55px;
-        height: 55px;
+        width: 52px;
+        height: 52px;
         border-radius: 12px;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        display: inline-flex;
+        background: #f8fafc;
+        display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
 
-    /* Badge Stok Berkelas */
-    .badge-stock {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34d399;
+    .product-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        /* Force rendering tajam/HD di browser webkit & modern */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    /* Badge Stock Soft Violet */
+    .badge-soft-indigo {
+        background: rgba(99, 102, 241, 0.12) !important;
+        color: #4f46e5 !important;
         font-weight: 700;
         font-size: 12px;
+        padding: 5px 14px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    /* Action Buttons Soft */
+    .btn-action-view {
+        background: #e0e7ff !important;
+        color: #3730a3 !important;
+        border: none !important;
+        font-weight: 600;
+        font-size: 12px;
         padding: 6px 14px;
-        border-radius: 30px;
-        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 8px;
     }
 
-    /* Tombol Aksi */
-    .btn-action {
-        padding: 6px 12px;
-        font-size: 12.5px;
-        border-radius: 10px;
+    .btn-action-edit {
+        background: #fef3c7 !important;
+        color: #d97706 !important;
+        border: none !important;
         font-weight: 600;
-        transition: all 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
+        font-size: 12px;
+        padding: 6px 14px;
+        border-radius: 8px;
     }
 
-    .btn-view {
-        background: rgba(59, 130, 246, 0.15);
-        color: #60a5fa;
-        border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-    .btn-view:hover {
-        background: #3b82f6;
-        color: white;
-    }
-
-    .btn-edit {
-        background: rgba(245, 158, 11, 0.15);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .btn-edit:hover {
-        background: #f59e0b;
-        color: white;
-    }
-
-    .btn-delete {
-        background: rgba(239, 68, 68, 0.15);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .btn-delete:hover {
-        background: #ef4444;
-        color: white;
-    }
-
-    /* Pagination Kustom */
-    .pagination {
-        margin-top: 30px;
-        margin-bottom: 0;
-        justify-content: flex-end;
-    }
-    
-    .page-item .page-link {
-        border-radius: 12px;
-        margin: 0 4px;
-        color: #cbd5e1;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 13px;
+    .btn-action-delete {
+        background: #fce7f3 !important;
+        color: #db2777 !important;
+        border: none !important;
         font-weight: 600;
-        padding: 10px 16px;
-        background: rgba(15, 23, 42, 0.6);
-        transition: all 0.2s ease;
-    }
-
-    .page-item.active .page-link {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        border-color: transparent;
-        color: white;
-        box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
-    }
-
-    .page-item .page-link:hover:not(.active) {
-        background-color: rgba(30, 41, 59, 0.9);
-        color: #34d399;
-        border-color: rgba(16, 185, 129, 0.3);
+        font-size: 12px;
+        padding: 6px 14px;
+        border-radius: 8px;
     }
 </style>
 
@@ -320,12 +242,9 @@
             <p class="page-subtitle mb-0">Kelola data inventaris dan produk barang aplikasi POS dengan mudah.</p>
         </div>
 
-        @can('create', App\Models\Produk::class)
-        <a href="{{ route('produk.create') }}" class="btn btn-success btn-modern">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Tambah Produk Baru
+        <a href="{{ route('produk.create') }}" class="btn btn-indigo d-inline-flex align-items-center gap-2">
+            <span style="font-size: 16px;">+</span> Tambah Produk Baru
         </a>
-        @endcan
     </div>
 
     <!-- Statistik Singkat -->
@@ -334,7 +253,7 @@
             <div class="stat-card">
                 <div class="stat-icon">📦</div>
                 <div>
-                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">TOTAL PRODUK</span>
+                    <span class="stat-label">TOTAL PRODUK</span>
                     <h4 class="fw-bold mb-0 text-white">{{ method_exists($products, 'total') ? $products->total() : count($products) }}</h4>
                 </div>
             </div>
@@ -343,7 +262,7 @@
             <div class="stat-card">
                 <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">💼</div>
                 <div>
-                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">STATUS INVENTARIS</span>
+                    <span class="stat-label">STATUS INVENTARIS</span>
                     <h4 class="fw-bold mb-0 text-white">Terkontrol</h4>
                 </div>
             </div>
@@ -352,12 +271,18 @@
             <div class="stat-card">
                 <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⚡</div>
                 <div>
-                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">SISTEM GUDANG</span>
+                    <span class="stat-label">SISTEM GUDANG</span>
                     <h4 class="fw-bold mb-0 text-white">Aktif & Sinkron</h4>
                 </div>
             </div>
         </div>
     </div>
+
+    @if(session('success'))
+        <div class="alert alert-success fade show mb-4" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px;" role="alert">
+            ✓ {{ session('success') }}
+        </div>
+    @endif
 
     <!-- Card Utama -->
     <div class="page-card">
@@ -365,16 +290,14 @@
         <!-- Search Form -->
         <form action="{{ route('produk.index') }}" method="GET" class="mb-4">
             <div class="input-group search-box">
-                <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
-                    🔍
-                </span>
+                <span class="input-group-text bg-transparent border-0 ps-3 text-muted">🔍</span>
                 <input
                     type="text"
                     name="search"
                     value="{{ request('search') }}"
                     class="form-control"
                     placeholder="Cari berdasarkan nama produk...">
-                <button class="btn px-4" style="background: var(--primary-color); color: white; border:none; font-weight: 600;">
+                <button class="btn btn-indigo px-4">
                     Cari Produk
                 </button>
             </div>
@@ -385,96 +308,78 @@
             <table class="table table-modern align-middle">
                 <thead>
                     <tr>
-                        <th width="5%" class="text-center">No</th>
-                        <th width="15%">Penginput</th>
-                        <th width="12%" class="text-center">Foto</th>
-                        <th width="23%">Nama Produk</th>
-                        <th width="12%">Harga Beli</th>
-                        <th width="13%">Harga Jual</th>
-                        <th width="10%" class="text-center">Stok</th>
-                        <th width="18%" class="text-center">Aksi</th>
+                        <th width="4%" class="text-center">#</th>
+                        <th width="14%">PENGINPUT</th>
+                        <th width="8%">FOTO</th>
+                        <th width="22%">NAMA PRODUK</th>
+                        <th width="15%">HARGA BELI</th>
+                        <th width="15%">HARGA JUAL</th>
+                        <th width="8%" class="text-center">STOK</th>
+                        <th width="14%" class="text-center">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($products as $product)
                     <tr>
-                        <td class="text-center text-muted fw-semibold">
-                            {{ $products->firstItem() + $loop->index }}
+                        <td class="text-center fw-bold" style="color: #64748b !important;">
+                            {{ method_exists($products, 'firstItem') ? $products->firstItem() + $loop->index : $loop->iteration }}
                         </td>
                         <td>
-                            <div class="fw-semibold text-white">{{ optional($product->user)->name ?? 'Sistem' }}</div>
+                            <div class="fw-bold" style="color: #0f172a !important;">{{ optional($product->user)->name ?? 'Admin POS' }}</div>
                         </td>
-                        <td class="text-center">
+                        <td>
                             <div class="product-img-wrapper">
                                 @if($product->foto)
-                                <img
-                                    src="{{ asset('storage/'.$product->foto) }}"
-                                    alt="{{ $product->nama }}"
-                                    width="55"
-                                    height="55"
-                                    style="object-fit:cover;">
+                                    <img src="{{ asset('storage/' . $product->foto) }}" alt="foto" class="product-img">
                                 @else
-                                <span class="text-muted" style="font-size: 11px;">No Img</span>
+                                    <span style="font-size: 20px;">🖼️</span>
                                 @endif
                             </div>
                         </td>
                         <td>
-                            <div class="fw-bold text-white" style="font-size: 14.5px;">{{ $product->nama }}</div>
+                            <div class="fw-bold text-uppercase" style="color: #0f172a !important; font-size: 14px;">
+                                {{ $product->nama_produk ?? $product->nama ?? $product->product_name ?? $product->name ?? 'NAMA KOSONG' }}
+                            </div>
                         </td>
                         <td>
-                            <span class="text-secondary">Rp {{ number_format($product->harga_beli,0,',','.') }}</span>
+                            <span class="fw-semibold" style="color: #334155 !important;">
+                                Rp {{ number_format($product->harga_beli ?? $product->harga_modal ?? 0, 0, ',', '.') }}
+                            </span>
                         </td>
                         <td>
-                            <span class="fw-bold text-success">Rp {{ number_format($product->harga_jual,0,',','.') }}</span>
+                            <span class="fw-bold" style="color: #16a34a !important; font-size: 14px;">
+                                Rp {{ number_format($product->harga_jual ?? $product->harga ?? 0, 0, ',', '.') }}
+                            </span>
                         </td>
                         <td class="text-center">
-                            <span class="badge-stock">
-                                {{ $product->stok }}
+                            <span class="badge-soft-indigo" style="color: #4f46e5 !important;">
+                                {{ $product->stok ?? $product->stock ?? 0 }}
                             </span>
                         </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-1">
-                                @can('view', $product)
-                                <a href="{{ route('produk.show',$product) }}"
-                                   class="btn btn-sm btn-view btn-action"
-                                   title="Detail">
+                                <a href="{{ route('produk.show', $product) }}" class="btn btn-action-view" title="Detail" style="color: #3730a3 !important;">
                                     👁️ Lihat
                                 </a>
-                                @endcan
-
-                                @can('update',$product)
-                                <a href="{{ route('produk.edit',$product) }}"
-                                   class="btn btn-sm btn-edit btn-action"
-                                   title="Edit">
+                                <a href="{{ route('produk.edit', $product) }}" class="btn btn-action-edit" title="Edit" style="color: #d97706 !important;">
                                     ✏️ Edit
                                 </a>
-                                @endcan
-
-                                @can('delete',$product)
-                                <form action="{{ route('produk.destroy',$product) }}"
-                                      method="POST"
-                                      class="d-inline">
+                                <form action="{{ route('produk.destroy', $product) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button
-                                        type="submit"
-                                        class="btn btn-sm btn-delete btn-action"
-                                        title="Hapus"
-                                        onclick="return confirm('Yakin ingin menghapus produk ini?')">
+                                    <button type="submit" class="btn btn-action-delete" title="Hapus" style="color: #db2777 !important;" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">
                                         🗑️ Hapus
                                     </button>
                                 </form>
-                                @endcan
                             </div>
                         </td>
                     </tr>
                     @empty
                     <tr>
                         <td colspan="8" class="text-center py-5">
-                            <div class="text-muted py-4">
-                                <div style="font-size: 48px;" class="mb-3">📦</div>
-                                <h5 class="fw-bold text-white mb-1">Belum ada data produk tersedia</h5>
-                                <p class="text-muted mb-0">Silakan tambahkan produk baru melalui tombol di pojok kanan atas.</p>
+                            <div class="text-muted py-3">
+                                <div style="font-size: 40px;" class="mb-2">📦</div>
+                                <h6 class="fw-bold mb-0" style="color: #64748b !important;">Data Produk Kosong</h6>
                             </div>
                         </td>
                     </tr>
@@ -484,9 +389,11 @@
         </div>
 
         <!-- Pagination -->
+        @if(method_exists($products, 'links'))
         <div class="d-flex justify-content-end mt-4">
             {{ $products->appends(request()->query())->links() }}
         </div>
+        @endif
 
     </div>
 
