@@ -163,13 +163,13 @@
 
 
 
-<a class="navbar-brand d-flex align-items-center" href="#">
+<a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
 
     <span class="brand-icon">
         🛒
     </span>
 
-    Aplikasi POS
+    Remon Thrift House
 
 </a>
 
@@ -237,7 +237,7 @@ Users
 <li class="nav-item">
 
 <a 
-class="nav-link {{ Request::is('produk') ? 'active' : '' }}"
+class="nav-link {{ Request::is('produk*') ? 'active' : '' }}"
 href="{{ route('produk.index') }}">
 
 Produk
@@ -253,7 +253,7 @@ Produk
 <li class="nav-item">
 
 <a 
-class="nav-link {{ Request::is('penjualan') ? 'active' : '' }}"
+class="nav-link {{ Request::is('penjualan*') ? 'active' : '' }}"
 href="{{ route('penjualan.index') }}">
 
 Penjualan

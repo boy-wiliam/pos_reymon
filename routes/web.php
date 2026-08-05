@@ -8,10 +8,15 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 
+// Redirect root URL langsung ke halaman login
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
 // Route yang bisa diakses ketika user BELUM login
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
-    Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
+    Route::post('/login', [AuthController::class, 'auth'])->name('login.process');
 });
 
 // Route yang hanya bisa diakses ketika user SUDAH login
@@ -29,7 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy'); 
     });
 
-    // BIsa diakses Admin & Kasir
+    // Bisa diakses Admin & Kasir
     Route::middleware('role:admin,kasir')->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);

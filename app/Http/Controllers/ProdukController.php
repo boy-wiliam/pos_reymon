@@ -2,175 +2,141 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Produk\StoreRequest;
-use App\Http\Requests\Produk\UpdateRequest;
-use App\Http\Requests\SearchRequest;
 use App\Models\Produk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan daftar produk
      */
-    public function index(SearchRequest $request)
+    public function index(Request $request)
     {
-        $this->authorize('viewAny', Produk::class);
-
-        $keyword = $request->input('search');
-
         $query = Produk::query();
 
-        if ($keyword) {
-            $query->where('nama', 'LIKE', '%' . $keyword . '%')
-                  ->orderBy('nama');
-        } else {
-            $query->latest();
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
         }
 
-        $products = $query->paginate(10)->withQueryString();
+        $produk = $query->latest()->paginate(10);
 
-        return view('produk.index', compact('products'));
+        return view('produk.index', compact('produk'));
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Tampilkan form tambah produk
      */
     public function create()
     {
-        $this->authorize('create', Produk::class);
-
         return view('produk.create');
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Simpan produk baru
      */
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
-        $this->authorize('create', Produk::class);
+        $request->validate([
+            'nama'        => 'required|string|max:255',
+            'harga_beli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'stok'       => 'required|integer',
+            'foto'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
 
-        $dataReq = $request->validated();
-
-        $data = [
-            'user_id'     => Auth::id(),
-            'nama'        => $dataReq['name'],
-            'harga_beli'  => $dataReq['purchase_price'],
-            'harga_jual'  => $dataReq['selling_price'],
-            'stok'        => $dataReq['stock'] ?? 0,
-        ];
+        $data = $request->only([
+            'nama',
+            'harga_beli',
+            'harga_jual',
+            'stok',
+        ]);
 
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')
-                                   ->store('products', 'public');
+            $data['foto'] = $request->file('foto')->store('produk', 'public');
+        }
+
+        if (auth()->check()) {
+            $data['user_id'] = auth()->id();
         }
 
         Produk::create($data);
 
-        return redirect()
-            ->route('produk.index')
-            ->with('success', 'Product created successfully.');
+        return redirect()->route('produk.index')
+            ->with('success', 'Produk berhasil ditambahkan!');
     }
 
-
     /**
-     * Display the specified resource.
+     * Detail produk
      */
     public function show(Produk $produk)
     {
-        $this->authorize('view', $produk);
-
-        return view('produk.detail', compact('produk'));
+        return view('produk.show', compact('produk'));
     }
 
-
     /**
-     * Show the form for editing the specified resource.
+     * Form edit produk
      */
     public function edit(Produk $produk)
     {
-        $this->authorize('update', $produk);
-
         return view('produk.edit', compact('produk'));
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * Update produk
      */
-    public function update(UpdateRequest $request, Produk $produk)
+    public function update(Request $request, Produk $produk)
     {
-        $this->authorize('update', $produk);
+        $request->validate([
+            'nama'        => 'required|string|max:255',
+            'harga_beli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'stok'       => 'required|integer',
+            'foto'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
 
-        $dataReq = $request->validated();
+        $data = $request->only([
+            'nama',
+            'harga_beli',
+            'harga_jual',
+            'stok',
+        ]);
 
-        $data = [
-            'user_id'     => Auth::id(),
-            'nama'        => $dataReq['name'],
-            'harga_beli'  => $dataReq['purchase_price'],
-            'harga_jual'  => $dataReq['selling_price'],
-            'stok'        => $dataReq['stock'],
-        ];
+        // Hapus foto
+        if ($request->has('hapus_foto')) {
+            if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+                Storage::disk('public')->delete($produk->foto);
+            }
+            $data['foto'] = null;
+        }
 
+        // Upload foto baru
         if ($request->hasFile('foto')) {
-
-            if (!empty($produk->foto) &&
-                Storage::disk('public')->exists($produk->foto)) {
-
+            if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
                 Storage::disk('public')->delete($produk->foto);
             }
 
-            $data['foto'] = $request->file('foto')
-                                   ->store('products', 'public');
+            $data['foto'] = $request->file('foto')->store('produk', 'public');
         }
-
 
         $produk->update($data);
 
-        return redirect()
-            ->route('produk.index')
-            ->with('success', 'Product updated successfully.');
+        return redirect()->route('produk.index')
+            ->with('success', 'Produk berhasil diperbarui!');
     }
 
-
     /**
-     * Remove the specified resource from storage.
+     * Hapus produk
      */
     public function destroy(Produk $produk)
     {
-        $this->authorize('delete', $produk);
-
-
-        // Cek apakah produk sudah pernah digunakan pada transaksi
-        if ($produk->itemPenjualan()->exists()) {
-
-            return redirect()
-                ->route('produk.index')
-                ->with(
-                    'error',
-                    'Produk tidak dapat dihapus karena sudah digunakan dalam transaksi.'
-                );
-        }
-
-
-        // Hapus foto produk
-        if (!empty($produk->foto) &&
-            Storage::disk('public')->exists($produk->foto)) {
-
+        if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
             Storage::disk('public')->delete($produk->foto);
         }
 
-
-        // Hapus data produk
         $produk->delete();
 
-
-        return redirect()
-            ->route('produk.index')
-            ->with('success', 'Product deleted successfully.');
+        return redirect()->route('produk.index')
+            ->with('success', 'Produk berhasil dihapus!');
     }
 }
