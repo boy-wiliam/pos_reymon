@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Manajemen Users')
+@section('title', 'Remon Thrift House - Manajemen Users')
 
 @section('content')
 
@@ -8,453 +8,1220 @@
 
 <style>
     :root {
-        --primary-color: #6366f1;
-        --primary-dark: #4f46e5;
-        --primary-light: rgba(99, 102, 241, 0.1);
-        --accent-glow: rgba(99, 102, 241, 0.25);
-        --text-main: #f8fafc;
+        --bg-main: #090d16;
+        --card-bg: rgba(17, 24, 39, 0.75);
+        --accent-emerald: #10b981;
+        --accent-emerald-hover: #059669;
+        --border-color: rgba(255, 255, 255, 0.12);
         --text-muted: #94a3b8;
-        --radius-card: 24px;
-        --radius-element: 14px;
     }
 
     body {
-        /* Background Gelap Elegan dengan Multi-Glow Mesh Khas Manajemen User */
-        background-color: #0f172a;
-        background-image: 
-            radial-gradient(at 15% 15%, rgba(79, 70, 229, 0.22) 0px, transparent 50%),
-            radial-gradient(at 85% 15%, rgba(147, 51, 234, 0.18) 0px, transparent 50%),
-            radial-gradient(at 50% 85%, rgba(15, 23, 42, 0.9) 0px, transparent 50%);
-        background-attachment: fixed;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        color: var(--text-main);
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(16, 185, 129, 0.08),
+                transparent 25%
+            ),
+            radial-gradient(
+                circle at 90% 20%,
+                rgba(56, 189, 248, 0.06),
+                transparent 25%
+            ),
+            linear-gradient(
+                135deg,
+                #07111c 0%,
+                #0b1625 45%,
+                #071c1a 100%
+            ) !important;
+
+        font-family:
+            'Plus Jakarta Sans',
+            system-ui,
+            -apple-system,
+            sans-serif;
+
+        color: #f8fafc !important;
+        min-height: 100vh;
     }
 
-    .page-title {
-        color: #ffffff;
-        font-size: 30px;
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .header-box {
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(16, 185, 129, 0.14),
+                transparent 55%
+            ),
+            rgba(17, 24, 39, 0.92);
+
+        border: 1px solid var(--border-color);
+
+        border-radius: 22px;
+
+        padding: 28px 32px;
+
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.28);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand-pill {
+        background:
+            rgba(16, 185, 129, 0.12);
+
+        color:
+            var(--accent-emerald);
+
+        font-size: 11px;
+
         font-weight: 800;
-        letter-spacing: -0.75px;
+
+        letter-spacing: 0.5px;
+
+        padding: 5px 14px;
+
+        border-radius: 30px;
+
+        border:
+            1px solid rgba(16, 185, 129, 0.30);
+
+        display: inline-block;
     }
 
-    .page-subtitle {
-        color: var(--text-muted);
+    .header-subtitle {
+        color: #cbd5e1 !important;
+        font-size: 13px;
+    }
+
+
+    /* =========================================================
+       BUTTON CREATE
+    ========================================================= */
+
+    .btn-create {
+        background:
+            linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            ) !important;
+
+        color: #ffffff !important;
+
+        border: none !important;
+
+        border-radius: 13px;
+
+        font-weight: 700;
+
         font-size: 14px;
-        font-weight: 500;
+
+        padding: 12px 22px;
+
+        transition:
+            all 0.25s ease;
+
+        box-shadow:
+            0 8px 20px rgba(16, 185, 129, 0.22);
+
+        text-decoration: none !important;
     }
 
-    /* Kartu Statistik Mini Khusus User */
+    .btn-create:hover {
+        transform: translateY(-2px);
+
+        color: #ffffff !important;
+
+        box-shadow:
+            0 12px 25px rgba(16, 185, 129, 0.34);
+    }
+
+
+    /* =========================================================
+       STAT CARDS
+    ========================================================= */
+
     .stat-card {
-        background: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 20px 24px;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+            linear-gradient(
+                145deg,
+                rgba(25, 38, 53, 0.94),
+                rgba(17, 24, 39, 0.94)
+            );
+
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.10);
+
+        border-radius: 18px;
+
+        padding: 21px 23px;
+
         display: flex;
+
         align-items: center;
-        gap: 16px;
-        transition: transform 0.3s ease, border-color 0.3s ease;
+
+        gap: 17px;
+
+        min-height: 105px;
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.25);
+
+        transition:
+            transform 0.2s ease,
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 2px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(16, 185, 129, 0.8),
+                rgba(56, 189, 248, 0.65)
+            );
     }
 
     .stat-card:hover {
         transform: translateY(-3px);
-        border-color: rgba(99, 102, 241, 0.4);
+
+        border-color:
+            rgba(16, 185, 129, 0.35);
+
+        box-shadow:
+            0 16px 35px rgba(0, 0, 0, 0.30);
     }
 
     .stat-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
+        width: 52px;
+        height: 52px;
+
+        border-radius: 15px;
+
         display: flex;
+
         align-items: center;
         justify-content: center;
+
         font-size: 22px;
-        background: rgba(99, 102, 241, 0.15);
-        color: #818cf8;
+
+        flex-shrink: 0;
     }
 
-    /* Kartu Utama */
-    .page-card {
-        background: rgba(30, 41, 59, 0.75);
-        backdrop-filter: blur(16px);
-        border-radius: var(--radius-card);
-        padding: 35px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        position: relative;
-        overflow: hidden;
-    }
+    .stat-label {
+        color: #cbd5e1 !important;
 
-    .page-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #6366f1, #a855f7, #4f46e5);
-    }
-
-    .btn-modern {
-        border-radius: var(--radius-element);
-        font-weight: 600;
-        padding: 12px 22px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 14px;
-    }
-
-    .btn-indigo.btn-modern {
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        border: none;
-        color: white;
-        box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.4);
-    }
-
-    .btn-indigo.btn-modern:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px -4px rgba(99, 102, 241, 0.6);
-        background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-    }
-
-    /* Kotak Pencarian Elegan */
-    .search-box {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1.5px solid rgba(255, 255, 255, 0.1);
-        border-radius: var(--radius-element);
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .search-box:focus-within {
-        border-color: var(--primary-color);
-        background: rgba(15, 23, 42, 0.9);
-        box-shadow: 0 0 0 4px var(--accent-glow);
-    }
-
-    .search-box .form-control {
-        border: none;
-        padding: 14px 20px;
-        background: transparent;
-        font-size: 14px;
-        color: #ffffff;
-    }
-
-    .search-box .form-control::placeholder {
-        color: #64748b;
-    }
-
-    .search-box .form-control:focus {
-        box-shadow: none;
-        color: #ffffff;
-    }
-
-    /* Tabel Estetik */
-    .table-modern {
-        border-collapse: separate;
-        border-spacing: 0 8px;
-        width: 100%;
-    }
-
-    .table-modern thead th {
-        background: rgba(15, 23, 42, 0.5);
-        color: var(--text-muted);
-        font-weight: 700;
-        text-transform: uppercase;
         font-size: 11px;
-        letter-spacing: 1px;
-        padding: 14px 20px;
+
+        font-weight: 700;
+
+        letter-spacing: 0.8px;
+
+        text-transform: uppercase;
+
+        display: block;
+
+        margin-bottom: 4px;
+    }
+
+    .stat-value {
+        color: #ffffff !important;
+
+        font-size: 22px;
+
+        font-weight: 800;
+
+        line-height: 1.2;
+    }
+
+
+    /* =========================================================
+       MAIN CARD
+    ========================================================= */
+
+    .main-card {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(15, 23, 42, 0.94),
+                rgba(15, 23, 42, 0.80)
+            );
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.09);
+
+        border-radius: 20px;
+
+        padding: 25px;
+
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.28);
+    }
+
+
+    /* =========================================================
+       SEARCH
+    ========================================================= */
+
+    .search-container {
+        background:
+            rgba(17, 24, 39, 0.92);
+
+        border:
+            1px solid var(--border-color);
+
+        border-radius: 13px;
+
+        padding:
+            6px 7px 6px 15px;
+
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+
+        max-width: 520px;
+
+        transition:
+            all 0.2s ease;
+    }
+
+    .search-container:focus-within {
+        border-color:
+            rgba(16, 185, 129, 0.50);
+
+        box-shadow:
+            0 0 15px rgba(16, 185, 129, 0.12);
+    }
+
+    .search-input {
+        background: transparent !important;
+
+        border: none !important;
+
+        color: #ffffff !important;
+
+        font-size: 13px;
+
+        box-shadow: none !important;
+
+        width: 100%;
+
+        outline: none;
+
+        padding-right: 10px;
+    }
+
+    .search-input::placeholder {
+        color: var(--text-muted);
+    }
+
+    .btn-search-submit {
+        background:
+            var(--accent-emerald) !important;
+
+        color: #ffffff !important;
+
+        border: none !important;
+
+        font-weight: 700;
+
+        font-size: 12px;
+
+        padding: 8px 17px;
+
+        border-radius: 10px;
+
+        white-space: nowrap;
+
+        transition:
+            all 0.2s ease;
+    }
+
+    .btn-search-submit:hover {
+        background:
+            var(--accent-emerald-hover) !important;
+
+        transform: translateY(-1px);
+    }
+
+
+    /* =========================================================
+       TABLE
+    ========================================================= */
+
+    .table-wrapper {
+        width: 100%;
+
+        overflow-x: auto;
+
+        scrollbar-width: thin;
+    }
+
+    .custom-table {
+        width: 100%;
+
+        border-collapse: separate;
+
+        border-spacing: 0 8px;
+
+        min-width: 760px;
+    }
+
+    .custom-table thead th {
+        background:
+            rgba(30, 41, 59, 0.95);
+
+        color: #38bdf8 !important;
+
+        font-size: 10px;
+
+        font-weight: 800;
+
+        letter-spacing: 0.9px;
+
+        text-transform: uppercase;
+
+        padding: 13px 17px;
+
         border: none;
     }
 
-    .table-modern thead th:first-child {
-        border-top-left-radius: var(--radius-element);
-        border-bottom-left-radius: var(--radius-element);
+    .custom-table thead th:first-child {
+        border-radius:
+            11px 0 0 11px;
     }
 
-    .table-modern thead th:last-child {
-        border-top-right-radius: var(--radius-element);
-        border-bottom-right-radius: var(--radius-element);
+    .custom-table thead th:last-child {
+        border-radius:
+            0 11px 11px 0;
     }
 
-    .table-modern tbody tr {
-        background: rgba(15, 23, 42, 0.4);
-        transition: all 0.2s ease;
+    .custom-table tbody tr {
+        transition:
+            all 0.2s ease;
     }
 
-    .table-modern tbody tr td {
-        padding: 16px 20px;
-        color: #e2e8f0;
-        font-size: 14px;
-        border-top: 1px solid rgba(255, 255, 255, 0.04);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    .custom-table tbody tr:hover {
+        transform: translateY(-1px);
+    }
+
+    .custom-table tbody td {
+        background:
+            rgba(17, 24, 39, 0.88);
+
+        color: #f8fafc;
+
+        padding: 14px 17px;
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.07);
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.07);
+
         vertical-align: middle;
     }
 
-    .table-modern tbody tr td:first-child {
-        border-left: 1px solid rgba(255, 255, 255, 0.04);
-        border-top-left-radius: var(--radius-element);
-        border-bottom-left-radius: var(--radius-element);
+    .custom-table tbody tr:hover td {
+        background:
+            rgba(30, 41, 59, 0.95);
     }
 
-    .table-modern tbody tr td:last-child {
-        border-right: 1px solid rgba(255, 255, 255, 0.04);
-        border-top-right-radius: var(--radius-element);
-        border-bottom-right-radius: var(--radius-element);
+    .custom-table tbody td:first-child {
+        border-left:
+            1px solid rgba(255, 255, 255, 0.07);
+
+        border-radius:
+            12px 0 0 12px;
     }
 
-    .table-modern tbody tr:hover {
-        transform: translateY(-2px);
-        background-color: rgba(30, 41, 59, 0.9);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    .custom-table tbody td:last-child {
+        border-right:
+            1px solid rgba(255, 255, 255, 0.07);
+
+        border-radius:
+            0 12px 12px 0;
     }
 
-    /* Avatar Minimalis Berkelas */
+
+    /* =========================================================
+       USER AVATAR
+    ========================================================= */
+
     .user-avatar {
         width: 42px;
         height: 42px;
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        color: white;
-        font-weight: 700;
-        font-size: 15px;
+
         border-radius: 12px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            );
+
+        color: #ffffff;
+
         display: flex;
+
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+
+        font-weight: 800;
+
+        font-size: 13px;
+
+        flex-shrink: 0;
+
+        box-shadow:
+            0 5px 15px rgba(16, 185, 129, 0.15);
     }
 
-    /* Badge Role Mewah */
-    .badge-role {
-        background: rgba(99, 102, 241, 0.15);
-        color: #818cf8;
-        font-weight: 700;
-        font-size: 11px;
-        letter-spacing: 0.3px;
-        padding: 7px 14px;
-        border-radius: 30px;
+
+    /* =========================================================
+       ROLE BADGE
+    ========================================================= */
+
+    .role-badge {
         display: inline-flex;
+
         align-items: center;
-        gap: 6px;
-        border: 1px solid rgba(99, 102, 241, 0.3);
+
+        gap: 7px;
+
+        padding:
+            6px 12px;
+
+        border-radius: 30px;
+
+        background:
+            rgba(16, 185, 129, 0.12);
+
+        border:
+            1px solid rgba(16, 185, 129, 0.28);
+
+        color:
+            #6ee7b7 !important;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        white-space: nowrap;
     }
 
-    .badge-role::before {
-        content: '';
+    .role-badge::before {
+        content: "";
+
         width: 6px;
         height: 6px;
-        background-color: #818cf8;
+
         border-radius: 50%;
+
+        background:
+            var(--accent-emerald);
+
+        box-shadow:
+            0 0 8px rgba(16, 185, 129, 0.65);
     }
 
-    /* Tombol Aksi */
-    .btn-action {
-        padding: 8px 14px;
-        font-size: 13px;
-        border-radius: 10px;
-        font-weight: 600;
-        transition: all 0.2s ease;
+
+    /* =========================================================
+       ACTION BUTTONS
+    ========================================================= */
+
+    .btn-act {
+        border: none !important;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        padding:
+            8px 13px;
+
+        border-radius: 9px;
+
         display: inline-flex;
+
         align-items: center;
-        gap: 6px;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        transition:
+            all 0.2s ease;
+
+        text-decoration: none !important;
+
+        white-space: nowrap;
     }
 
-    .btn-edit {
-        background: rgba(245, 158, 11, 0.15);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .btn-edit:hover {
-        background: #f59e0b;
-        color: white;
+    .btn-act:hover {
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
     }
 
-    .btn-delete {
-        background: rgba(239, 68, 68, 0.15);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .btn-delete:hover {
-        background: #ef4444;
-        color: white;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    .btn-act-edit {
+        background:
+            rgba(245, 158, 11, 0.13) !important;
+
+        color:
+            #fbbf24 !important;
+
+        border:
+            1px solid rgba(245, 158, 11, 0.22) !important;
     }
 
-    /* Pagination Kustom */
+    .btn-act-edit:hover {
+        background:
+            #f59e0b !important;
+
+        color:
+            #ffffff !important;
+    }
+
+    .btn-act-delete {
+        background:
+            rgba(239, 68, 68, 0.12) !important;
+
+        color:
+            #f87171 !important;
+
+        border:
+            1px solid rgba(239, 68, 68, 0.22) !important;
+    }
+
+    .btn-act-delete:hover {
+        background:
+            #ef4444 !important;
+
+        color:
+            #ffffff !important;
+    }
+
+
+    /* =========================================================
+       EMPTY STATE
+    ========================================================= */
+
+    .empty-users {
+        color: #64748b !important;
+    }
+
+
+    /* =========================================================
+       PAGINATION
+    ========================================================= */
+
     .pagination {
-        margin-top: 30px;
         margin-bottom: 0;
-        justify-content: flex-end;
-    }
-    
-    .page-item .page-link {
-        border-radius: 12px;
-        margin: 0 4px;
-        color: #cbd5e1;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 13px;
-        font-weight: 600;
-        padding: 10px 16px;
-        background: rgba(15, 23, 42, 0.6);
-        transition: all 0.2s ease;
     }
 
-    .page-item.active .page-link {
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        border-color: transparent;
-        color: white;
-        box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+    .pagination .page-link {
+        background:
+            rgba(255, 255, 255, 0.05);
+
+        border-color:
+            rgba(255, 255, 255, 0.08);
+
+        color:
+            #cbd5e1;
     }
 
-    .page-item .page-link:hover:not(.active) {
-        background-color: rgba(30, 41, 59, 0.9);
-        color: #818cf8;
-        border-color: rgba(99, 102, 241, 0.3);
+    .pagination .page-link:hover {
+        background:
+            rgba(16, 185, 129, 0.12);
+
+        color:
+            #6ee7b7;
+
+        border-color:
+            rgba(16, 185, 129, 0.25);
+    }
+
+    .pagination .page-item.active .page-link {
+        background:
+            #10b981;
+
+        border-color:
+            #10b981;
+
+        color:
+            #ffffff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        background:
+            rgba(255, 255, 255, 0.025);
+
+        color:
+            #475569;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 768px) {
+
+        .header-box {
+            padding: 22px;
+        }
+
+        .main-card {
+            padding: 18px;
+        }
+
+        .search-container {
+            max-width: 100%;
+        }
+
+        .btn-create {
+            width: 100%;
+        }
+
+        .stat-card {
+            min-height: 92px;
+        }
+
+    }
+
+
+    @media (max-width: 576px) {
+
+        .container-fluid {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        .header-box {
+            border-radius: 17px;
+
+            padding: 20px;
+        }
+
+        .main-card {
+            border-radius: 16px;
+
+            padding: 14px;
+        }
+
+        .stat-card {
+            padding: 17px;
+
+            border-radius: 15px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+
+            border-radius: 13px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+        }
+
+        .search-container {
+            padding-left: 12px;
+        }
+
+        .btn-search-submit {
+            padding:
+                8px 12px;
+        }
+
+        .custom-table {
+            min-width: 760px;
+        }
+
     }
 </style>
 
-<div class="container-fluid py-4 px-4">
 
-    <!-- Header Section -->
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+<div class="container-fluid py-4 px-md-4">
+
+    {{-- =====================================================
+         HEADER
+    ====================================================== --}}
+
+    <div
+        class="header-box
+               d-flex
+               flex-column
+               flex-md-row
+               justify-content-between
+               align-items-md-center
+               gap-3
+               mb-4"
+    >
+
         <div>
-            <h1 class="page-title mb-1">👥 Manajemen Users</h1>
-            <p class="page-subtitle mb-0">Kelola hak akses dan akun pengguna aplikasi POS dengan mudah dan aman.</p>
+
+            <span class="brand-pill mb-2">
+                👥 REMON THRIFT HOUSE
+            </span>
+
+            <h2
+                class="fw-bold text-white mb-1"
+                style="font-size: 24px;"
+            >
+                Manajemen Users
+            </h2>
+
+            <p class="header-subtitle mb-0">
+                Kelola hak akses dan akun pengguna aplikasi POS
+                dengan mudah dan aman.
+            </p>
+
         </div>
 
-        <a href="{{ route('admin.users.create') }}" class="btn btn-indigo btn-modern">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Tambah User Baru
-        </a>
+
+        <div>
+
+            <a
+                href="{{ route('admin.users.create') }}"
+                class="btn btn-create d-inline-flex align-items-center gap-2"
+            >
+                <span class="fs-5">+</span>
+                Tambah User Baru
+            </a>
+
+        </div>
+
     </div>
 
-    <!-- Statistik Ringkasan User -->
+
+    {{-- =====================================================
+         STATISTIK
+    ====================================================== --}}
+
     <div class="row g-3 mb-4">
+
+        {{-- TOTAL PENGGUNA --}}
         <div class="col-md-4">
+
             <div class="stat-card">
-                <div class="stat-icon">👥</div>
-                <div>
-                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">TOTAL PENGGUNA</span>
-                    <h4 class="fw-bold mb-0 text-white">{{ method_exists($users, 'total') ? $users->total() : count($users) }}</h4>
+
+                <div
+                    class="stat-icon"
+                    style="
+                        background: rgba(16, 185, 129, 0.15);
+                        border: 1px solid rgba(16, 185, 129, 0.30);
+                    "
+                >
+                    👥
                 </div>
+
+                <div>
+
+                    <span class="stat-label">
+                        Total Pengguna
+                    </span>
+
+                    <div class="stat-value">
+                        {{ is_countable($users) ? count($users) : (method_exists($users, 'total') ? $users->total() : 0) }}
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
+
+        {{-- STATUS OTORITAS --}}
         <div class="col-md-4">
+
             <div class="stat-card">
-                <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">🛡️</div>
-                <div>
-                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">STATUS OTORITAS</span>
-                    <h4 class="fw-bold mb-0 text-white">Terproteksi</h4>
+
+                <div
+                    class="stat-icon"
+                    style="
+                        background: rgba(56, 189, 248, 0.15);
+                        border: 1px solid rgba(56, 189, 248, 0.30);
+                    "
+                >
+                    🛡️
                 </div>
+
+                <div>
+
+                    <span class="stat-label">
+                        Status Otoritas
+                    </span>
+
+                    <div class="stat-value">
+                        Terproteksi
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
+
+        {{-- ROLE AKTIF --}}
         <div class="col-md-4">
+
             <div class="stat-card">
-                <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⚡</div>
-                <div>
-                    <span class="text-muted d-block" style="font-size: 12px; font-weight: 600;">ROLE AKTIF</span>
-                    <h4 class="fw-bold mb-0 text-white">Multi-Level</h4>
+
+                <div
+                    class="stat-icon"
+                    style="
+                        background: rgba(245, 158, 11, 0.15);
+                        border: 1px solid rgba(245, 158, 11, 0.30);
+                    "
+                >
+                    ⚡
                 </div>
+
+                <div>
+
+                    <span class="stat-label">
+                        Role Aktif
+                    </span>
+
+                    <div class="stat-value">
+                        Multi-Level
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- Main Card -->
-    <div class="page-card">
 
-        <!-- Search Form -->
-        <form action="{{ route('admin.users') }}" method="GET" class="mb-4">
-            <div class="input-group search-box">
-                <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
-                    🔍
-                </span>
-                <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Cari berdasarkan nama atau email pengguna...">
-                <button class="btn px-4" style="background: var(--primary-color); color: white; border:none; font-weight: 600;">
-                    Cari Data
-                </button>
-            </div>
-        </form>
+    {{-- =====================================================
+         MAIN TABLE
+    ====================================================== --}}
 
-        <!-- Table Responsive -->
-        <div class="table-responsive">
-            <table class="table table-modern align-middle">
+    <div class="main-card">
+
+        {{-- SEARCH --}}
+
+        <div class="mb-4">
+
+            <form
+                action="{{ route('admin.users') }}"
+                method="GET"
+            >
+
+                <div class="search-container">
+
+                    <span
+                        class="me-2"
+                        style="
+                            color: #64748b;
+                            font-size: 14px;
+                        "
+                    >
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        class="form-control search-input"
+                        placeholder="Cari berdasarkan nama atau email pengguna..."
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-search-submit"
+                    >
+                        Cari Data
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        {{-- TABLE --}}
+
+        <div class="table-wrapper">
+
+            <table class="custom-table align-middle">
+
                 <thead>
+
                     <tr>
-                        <th width="5%" class="text-center">#</th>
-                        <th width="30%">Nama Lengkap</th>
-                        <th width="25%">Email</th>
-                        <th width="20%">Role Akses</th>
-                        <th width="20%" class="text-center">Aksi</th>
+
+                        <th
+                            width="5%"
+                            class="text-center"
+                        >
+                            #
+                        </th>
+
+                        <th width="35%">
+                            Nama Lengkap
+                        </th>
+
+                        <th width="25%">
+                            Email
+                        </th>
+
+                        <th width="15%">
+                            Role Akses
+                        </th>
+
+                        <th
+                            width="20%"
+                            class="text-center"
+                        >
+                            Aksi
+                        </th>
+
                     </tr>
+
                 </thead>
+
+
                 <tbody>
+
                     @forelse ($users as $user)
+
                         <tr>
-                            <td class="text-muted fw-semibold text-center">
-                                {{ $users->firstItem() + $loop->index }}
+
+                            {{-- NOMOR --}}
+
+                            <td
+                                class="text-center fw-bold"
+                                style="
+                                    color: #cbd5e1;
+                                    font-size: 13px;
+                                "
+                            >
+                                {{ $loop->iteration }}
                             </td>
+
+
+                            {{-- NAMA --}}
+
                             <td>
-                                <div class="d-flex align-items-center gap-3">
+
+                                <div
+                                    class="d-flex
+                                           align-items-center
+                                           gap-3"
+                                >
+
                                     <div class="user-avatar">
+
                                         {{ strtoupper(substr($user->name, 0, 2)) }}
+
                                     </div>
+
+
                                     <div>
-                                        <div class="fw-bold text-white" style="font-size: 14.5px;">{{ $user->name }}</div>
-                                        <div class="text-muted" style="font-size: 12px;">Terdaftar ID: #{{ $user->id }}</div>
+
+                                        <div
+                                            class="fw-bold text-white"
+                                            style="font-size: 14px;"
+                                        >
+                                            {{ $user->name }}
+                                        </div>
+
+                                        <div
+                                            class="text-muted"
+                                            style="font-size: 11px;"
+                                        >
+                                            Terdaftar ID:
+                                            #{{ $user->id }}
+                                        </div>
+
                                     </div>
+
                                 </div>
+
                             </td>
+
+
+                            {{-- EMAIL --}}
+
                             <td>
-                                <span class="text-secondary fw-medium">{{ $user->email }}</span>
-                            </td>
-                            <td>
-                                <span class="badge-role">
-                                    {{ $user->role->name ?? 'Tanpa Role' }}
+
+                                <span
+                                    style="
+                                        font-size: 13px;
+                                        color: #cbd5e1 !important;
+                                    "
+                                >
+                                    {{ $user->email }}
                                 </span>
+
                             </td>
+
+
+                            {{-- ROLE --}}
+
+                            <td>
+
+                                <span class="role-badge">
+
+                                    {{ $user->role->name ?? 'admin' }}
+
+                                </span>
+
+                            </td>
+
+
+                            {{-- AKSI --}}
+
                             <td class="text-center">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-edit btn-action" title="Edit Pengguna">
+
+                                <div
+                                    class="d-flex
+                                           justify-content-center
+                                           gap-2"
+                                >
+
+                                    {{-- EDIT --}}
+
+                                    <a
+                                        href="{{ route('admin.users.edit', $user) }}"
+                                        class="btn-act btn-act-edit"
+                                        title="Edit Pengguna"
+                                    >
                                         ✏️ Edit
                                     </a>
 
-                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
+
+                                    {{-- HAPUS --}}
+
+                                    <form
+                                        action="{{ route('admin.users.destroy', $user) }}"
+                                        method="POST"
+                                        class="d-inline m-0"
+                                    >
+
                                         @csrf
+
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-delete btn-action" title="Hapus Pengguna" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+
+                                        <button
+                                            type="submit"
+                                            class="btn-act btn-act-delete"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')"
+                                            title="Hapus Pengguna"
+                                        >
                                             🗑️ Hapus
                                         </button>
+
                                     </form>
+
                                 </div>
+
                             </td>
+
                         </tr>
+
                     @empty
+
                         <tr>
-                            <td colspan="5" class="text-center py-5">
-                                <div class="text-muted py-4">
-                                    <div style="font-size: 48px;" class="mb-3">📂</div>
-                                    <h5 class="fw-bold text-white mb-1">Belum ada data user ditemukan</h5>
-                                    <p class="text-muted mb-0">Silakan tambahkan pengguna baru melalui tombol di pojok kanan atas.</p>
+
+                            <td
+                                colspan="5"
+                                class="text-center py-5"
+                            >
+
+                                <div class="py-3">
+
+                                    <div
+                                        style="font-size: 48px;"
+                                        class="mb-2"
+                                    >
+                                        👥
+                                    </div>
+
+                                    <h6
+                                        class="text-white fw-bold mb-1"
+                                    >
+                                        Belum Ada Data User Ditemukan
+                                    </h6>
+
+                                    <p
+                                        class="text-muted small mb-0"
+                                    >
+                                        Klik "+ Tambah User Baru"
+                                        untuk menambahkan pengguna baru.
+                                    </p>
+
                                 </div>
+
                             </td>
+
                         </tr>
+
                     @endforelse
+
                 </tbody>
+
             </table>
+
         </div>
 
-        <!-- Pagination -->
-        <div class="d-flex justify-content-end mt-4">
-            {{ $users->withQueryString()->links() }}
-        </div>
+
+        {{-- PAGINATION --}}
+
+        @if(method_exists($users, 'links'))
+
+            <div
+                class="d-flex
+                       justify-content-end
+                       mt-4"
+            >
+
+                {{ $users->withQueryString()->links() }}
+
+            </div>
+
+        @endif
 
     </div>
+
 </div>
 
 @endsection

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -14,180 +13,175 @@
         'resources/js/app.js'
     ])
 
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        body{
-
-            font-family:'Poppins',sans-serif;
-
-            background:linear-gradient(135deg,#f1f5f9,#eefbf5);
-
-            color:#334155;
-
-            min-height:100vh;
-
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            /* Background dasar dibuat gelap netral agar tidak bocor warna putih */
+            background-color: #030f12;
+            color: #334155;
+            overflow-x: hidden;
         }
 
-        .main-content{
-
-            padding:35px;
-
-            min-height:100vh;
-
+        .main-content {
+            width: 100%;
+            min-height: 100vh;
+            padding: 0; /* Di-set 0 agar child component bisa mengambil alih secara full screen */
+            margin: 0;
         }
 
         /* Card */
 
-        .card{
+        .card {
 
-            border:none;
+            border: none;
 
-            border-radius:22px;
+            border-radius: 22px;
 
-            overflow:hidden;
+            overflow: hidden;
 
             box-shadow:
-                0 10px 35px rgba(15,23,42,.08);
+                0 10px 35px rgba(15, 23, 42, .08);
 
-            transition:.3s;
+            transition: .3s;
 
         }
 
-        .card:hover{
+        .card:hover {
 
-            transform:translateY(-2px);
+            transform: translateY(-2px);
 
             box-shadow:
-                0 18px 40px rgba(15,23,42,.12);
+                0 18px 40px rgba(15, 23, 42, .12);
 
         }
 
         /* Button */
 
-        .btn{
+        .btn {
 
-            border-radius:12px;
+            border-radius: 12px;
 
-            font-weight:600;
+            font-weight: 600;
 
-            transition:.25s;
+            transition: .25s;
 
         }
 
-        .btn:hover{
+        .btn:hover {
 
-            transform:translateY(-2px);
+            transform: translateY(-2px);
 
         }
 
         /* Table */
 
-        .table{
+        .table {
 
-            margin-bottom:0;
-
-        }
-
-        .table thead th{
-
-            background:#16a34a;
-
-            color:white;
-
-            border:none;
-
-            text-align:center;
-
-            vertical-align:middle;
-
-            font-weight:600;
+            margin-bottom: 0;
 
         }
 
-        .table tbody td{
+        .table thead th {
 
-            vertical-align:middle;
+            background: #16a34a;
+
+            color: white;
+
+            border: none;
+
+            text-align: center;
+
+            vertical-align: middle;
+
+            font-weight: 600;
 
         }
 
-        .table tbody tr{
+        .table tbody td {
 
-            transition:.25s;
+            vertical-align: middle;
 
         }
 
-        .table tbody tr:hover{
+        .table tbody tr {
 
-            background:#f0fdf4;
+            transition: .25s;
+
+        }
+
+        .table tbody tr:hover {
+
+            background: #f0fdf4;
 
         }
 
         /* Image */
 
-        img{
+        img {
 
-            border-radius:12px;
+            border-radius: 12px;
 
         }
 
         /* Badge */
 
-        .badge{
+        .badge {
 
-            font-size:.85rem;
+            font-size: .85rem;
 
-            padding:8px 14px;
+            padding: 8px 14px;
 
-            border-radius:30px;
+            border-radius: 30px;
 
         }
 
         /* Alert */
 
-        .alert-modern{
+        .alert-modern {
 
-            border:none;
+            border: none;
 
-            border-radius:18px;
+            border-radius: 18px;
 
-            font-weight:600;
+            font-weight: 600;
 
-            padding:16px 20px;
+            padding: 16px 20px;
 
-            box-shadow:0 10px 25px rgba(0,0,0,.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 
-            animation:slideDown .5s;
+            animation: slideDown .5s;
 
         }
 
-        @keyframes slideDown{
+        @keyframes slideDown {
 
-            from{
+            from {
 
-                opacity:0;
+                opacity: 0;
 
-                transform:translateY(-20px);
+                transform: translateY(-20px);
 
             }
 
-            to{
+            to {
 
-                opacity:1;
+                opacity: 1;
 
-                transform:translateY(0);
+                transform: translateY(0);
 
             }
 
@@ -195,67 +189,55 @@
 
         /* Scrollbar */
 
-        ::-webkit-scrollbar{
+        ::-webkit-scrollbar {
 
-            width:9px;
-
-        }
-
-        ::-webkit-scrollbar-track{
-
-            background:#e5e7eb;
+            width: 9px;
 
         }
 
-        ::-webkit-scrollbar-thumb{
+        ::-webkit-scrollbar-track {
 
-            background:#16a34a;
-
-            border-radius:20px;
+            background: #030f12;
 
         }
 
-        ::-webkit-scrollbar-thumb:hover{
+        ::-webkit-scrollbar-thumb {
 
-            background:#15803d;
+            background: #16a34a;
+
+            border-radius: 20px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #15803d;
 
         }
 
         /* Pagination */
 
-        .pagination{
+        .pagination {
 
-            justify-content:end;
-
-        }
-
-        .page-link{
-
-            color:#16a34a;
-
-            border-radius:10px !important;
-
-            margin:0 3px;
+            justify-content: end;
 
         }
 
-        .page-item.active .page-link{
+        .page-link {
 
-            background:#16a34a;
+            color: #16a34a;
 
-            border-color:#16a34a;
+            border-radius: 10px !important;
+
+            margin: 0 3px;
 
         }
 
-        /* Responsive */
+        .page-item.active .page-link {
 
-        @media(max-width:768px){
+            background: #16a34a;
 
-            .main-content{
-
-                padding:18px;
-
-            }
+            border-color: #16a34a;
 
         }
 
@@ -269,7 +251,7 @@
 
     @if(session('success'))
 
-        <div class="alert alert-success alert-modern mb-4">
+        <div class="alert alert-success alert-modern m-4">
 
             <i class="bi bi-check-circle-fill me-2"></i>
 
@@ -286,4 +268,3 @@
 </body>
 
 </html>
-```

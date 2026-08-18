@@ -9,407 +9,1663 @@
 <style>
     :root {
         --bg-main: #090d16;
-        --card-bg: rgba(17, 24, 39, 0.75);
+        --card-bg: rgba(17, 24, 39, 0.78);
+        --card-bg-solid: #111827;
         --accent-emerald: #10b981;
         --accent-emerald-hover: #059669;
+        --accent-blue: #38bdf8;
+        --accent-yellow: #fbbf24;
+        --accent-red: #f87171;
         --border-color: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(16, 185, 129, 0.35);
         --text-muted: #94a3b8;
     }
 
+
+    /* =========================================================
+       BODY
+    ========================================================= */
+
     body {
-        background-color: var(--bg-main) !important;
-        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(16, 185, 129, 0.08),
+                transparent 28%
+            ),
+            radial-gradient(
+                circle at 90% 20%,
+                rgba(56, 189, 248, 0.05),
+                transparent 25%
+            ),
+            linear-gradient(
+                135deg,
+                #07111c 0%,
+                #0b1625 48%,
+                #071c1a 100%
+            ) !important;
+
+        min-height: 100vh;
+
+        font-family:
+            'Plus Jakarta Sans',
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            sans-serif;
+
         color: #f8fafc !important;
     }
 
-    /* Header Container */
+
+    /* =========================================================
+       PAGE WRAPPER
+    ========================================================= */
+
+    .product-page {
+        padding-top: 24px;
+        padding-bottom: 45px;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
     .header-box {
-        background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.15), transparent 60%),
-                    #111827;
-        border: 1px solid var(--border-color);
-        border-radius: 24px;
+        position: relative;
+
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(16, 185, 129, 0.15),
+                transparent 58%
+            ),
+            linear-gradient(
+                145deg,
+                rgba(17, 24, 39, 0.96),
+                rgba(15, 23, 42, 0.88)
+            );
+
+        border:
+            1px solid var(--border-color);
+
+        border-radius: 22px;
+
         padding: 28px 32px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+        box-shadow:
+            0 20px 45px rgba(0, 0, 0, 0.30);
+
+        overflow: hidden;
+    }
+
+    .header-box::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 2px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(16, 185, 129, 0.85),
+                rgba(56, 189, 248, 0.60),
+                transparent
+            );
     }
 
     .brand-pill {
-        background: rgba(16, 185, 129, 0.12);
-        color: var(--accent-emerald);
-        font-size: 11px;
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 6px;
+
+        background:
+            rgba(16, 185, 129, 0.12);
+
+        color:
+            #34d399;
+
+        font-size: 10px;
+
         font-weight: 800;
-        letter-spacing: 0.5px;
-        padding: 5px 14px;
+
+        letter-spacing: 0.7px;
+
+        padding:
+            6px 13px;
+
         border-radius: 30px;
-        border: 1px solid rgba(16, 185, 129, 0.3);
-        display: inline-block;
+
+        border:
+            1px solid rgba(16, 185, 129, 0.28);
+
+        margin-bottom: 10px;
     }
 
+    .page-title {
+        color: #ffffff;
+
+        font-size: 27px;
+
+        font-weight: 800;
+
+        letter-spacing: -0.6px;
+
+        margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+        color: #94a3b8 !important;
+
+        font-size: 13px;
+
+        margin: 0;
+    }
+
+
+    /* =========================================================
+       CREATE BUTTON
+    ========================================================= */
+
     .btn-create {
-        background: linear-gradient(135deg, #10b981, #059669) !important;
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            ) !important;
+
         color: #ffffff !important;
-        border: none !important;
-        border-radius: 14px;
+
+        border:
+            1px solid rgba(52, 211, 153, 0.35) !important;
+
+        border-radius: 13px;
+
         font-weight: 700;
-        font-size: 14px;
-        padding: 12px 24px;
-        transition: all 0.25s ease;
-        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+
+        font-size: 13px;
+
+        padding:
+            11px 18px;
+
+        transition:
+            all 0.25s ease;
+
+        box-shadow:
+            0 8px 22px rgba(16, 185, 129, 0.20);
+
         text-decoration: none !important;
     }
 
     .btn-create:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 25px rgba(16, 185, 129, 0.35);
+        color: #ffffff !important;
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 13px 28px rgba(16, 185, 129, 0.30);
+
+        filter: brightness(1.06);
     }
 
-    /* Form Pencarian UI */
+    .btn-create .plus-icon {
+        width: 22px;
+        height: 22px;
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 7px;
+
+        background:
+            rgba(255, 255, 255, 0.13);
+
+        font-size: 16px;
+
+        line-height: 1;
+    }
+
+
+    /* =========================================================
+       SUCCESS ALERT
+    ========================================================= */
+
+    .success-alert {
+        background:
+            rgba(16, 185, 129, 0.11) !important;
+
+        border:
+            1px solid rgba(16, 185, 129, 0.23) !important;
+
+        color:
+            #6ee7b7 !important;
+
+        border-radius: 13px;
+
+        padding:
+            12px 16px;
+    }
+
+
+    /* =========================================================
+       SEARCH
+    ========================================================= */
+
+    .search-area {
+        margin-top: 24px;
+
+        margin-bottom: 24px;
+    }
+
     .search-container {
-        background: #111827;
-        border: 1px solid var(--border-color);
-        border-radius: 16px;
-        padding: 6px 10px 6px 16px;
-        transition: all 0.2s ease;
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+
+        max-width: 520px;
+
+        min-height: 46px;
+
+        background:
+            rgba(17, 24, 39, 0.90);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.09);
+
+        border-radius: 13px;
+
+        padding:
+            5px 6px 5px 14px;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
     }
 
     .search-container:focus-within {
-        border-color: rgba(16, 185, 129, 0.5);
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        background:
+            rgba(17, 24, 39, 0.98);
+
+        border-color:
+            rgba(16, 185, 129, 0.48);
+
+        box-shadow:
+            0 0 0 3px rgba(16, 185, 129, 0.07);
+    }
+
+    .search-icon {
+        color: #64748b;
+
+        font-size: 14px;
+
+        flex-shrink: 0;
     }
 
     .search-input {
-        background: transparent !important;
-        border: none !important;
-        color: #ffffff !important;
-        font-size: 14px;
-        box-shadow: none !important;
+        flex: 1;
+
+        min-width: 0;
+
+        background:
+            transparent !important;
+
+        border:
+            none !important;
+
+        outline:
+            none !important;
+
+        box-shadow:
+            none !important;
+
+        color:
+            #ffffff !important;
+
+        font-size: 13px;
+
+        padding:
+            6px 10px;
     }
 
     .search-input::placeholder {
-        color: var(--text-muted);
+        color:
+            #64748b;
     }
 
-    /* Responsive Grid */
+    .btn-search {
+        background:
+            #10b981 !important;
+
+        color:
+            #ffffff !important;
+
+        border:
+            none !important;
+
+        border-radius: 9px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        padding:
+            9px 16px;
+
+        transition:
+            all 0.2s ease;
+
+        white-space: nowrap;
+    }
+
+    .btn-search:hover {
+        background:
+            #059669 !important;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    /* =========================================================
+       PRODUCT GRID
+    ========================================================= */
+
     .product-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 24px;
+
+        grid-template-columns:
+            repeat(auto-fill, minmax(255px, 1fr));
+
+        gap: 20px;
     }
 
-    /* Product Card Glassmorphism */
+
+    /* =========================================================
+       PRODUCT CARD
+    ========================================================= */
+
     .product-card {
-        background: var(--card-bg);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        overflow: hidden;
-        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+
         display: flex;
+
         flex-direction: column;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(25, 38, 53, 0.92),
+                rgba(15, 23, 42, 0.94)
+            );
+
+        backdrop-filter:
+            blur(16px);
+
+        -webkit-backdrop-filter:
+            blur(16px);
+
+        border:
+            1px solid var(--border-color);
+
+        border-radius: 19px;
+
+        overflow:
+            hidden;
+
+        transition:
+            transform 0.28s ease,
+            border-color 0.28s ease,
+            box-shadow 0.28s ease;
+
+        min-width: 0;
     }
 
     .product-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(16, 185, 129, 0.4);
-        box-shadow: 0 18px 36px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(16, 185, 129, 0.12);
+        transform:
+            translateY(-5px);
+
+        border-color:
+            var(--border-hover);
+
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.42),
+            0 0 22px rgba(16, 185, 129, 0.08);
     }
 
-    /* Box Gambar & Aspect Ratio */
+
+    /* =========================================================
+       IMAGE
+    ========================================================= */
+
     .card-img-box {
-        width: 100%;
-        height: 250px;
-        background: #0b1120;
         position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+        width: 100%;
+
+        height: 235px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #0b1120,
+                #111827
+            );
+
+        overflow:
+            hidden;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+    }
+
+    .card-img-box::after {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        height: 70px;
+
+        background:
+            linear-gradient(
+                to top,
+                rgba(7, 17, 28, 0.55),
+                transparent
+            );
+
+        pointer-events: none;
     }
 
     .card-img-box img {
         width: 100%;
+
         height: 100%;
-        object-fit: cover;
-        object-position: center;
-        transition: transform 0.4s ease;
+
+        object-fit:
+            cover;
+
+        object-position:
+            center;
+
+        transition:
+            transform 0.45s ease;
     }
 
     .product-card:hover .card-img-box img {
-        transform: scale(1.05);
+        transform:
+            scale(1.045);
     }
 
-    /* Badges */
+    .no-image {
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        gap: 5px;
+
+        color:
+            #64748b;
+
+        height: 100%;
+    }
+
+    .no-image-icon {
+        font-size: 38px;
+
+        opacity: 0.75;
+    }
+
+    .no-image-text {
+        font-size: 10px;
+
+        font-weight: 700;
+
+        text-transform:
+            uppercase;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    /* =========================================================
+       BADGES
+    ========================================================= */
+
     .badge-float {
         position: absolute;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        font-weight: 700;
-        font-size: 11px;
-        padding: 5px 12px;
-        border-radius: 30px;
+
+        z-index: 3;
+
+        display:
+            inline-flex;
+
+        align-items:
+            center;
+
+        backdrop-filter:
+            blur(10px);
+
+        -webkit-backdrop-filter:
+            blur(10px);
+
+        font-weight:
+            700;
+
+        font-size:
+            10px;
+
+        padding:
+            6px 11px;
+
+        border-radius:
+            30px;
+
+        line-height:
+            1;
+
+        white-space:
+            nowrap;
     }
 
     .stock-badge-normal {
         top: 12px;
+
         right: 12px;
-        background: rgba(15, 23, 42, 0.8);
-        color: #38bdf8;
-        border: 1px solid rgba(56, 189, 248, 0.3);
+
+        background:
+            rgba(15, 23, 42, 0.82);
+
+        color:
+            #38bdf8;
+
+        border:
+            1px solid rgba(56, 189, 248, 0.30);
     }
 
     .stock-badge-low {
         top: 12px;
+
         right: 12px;
-        background: rgba(245, 158, 11, 0.2);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.4);
+
+        background:
+            rgba(245, 158, 11, 0.18);
+
+        color:
+            #fbbf24;
+
+        border:
+            1px solid rgba(245, 158, 11, 0.35);
     }
 
     .stock-badge-empty {
         top: 12px;
+
         right: 12px;
-        background: rgba(239, 68, 68, 0.2);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.4);
+
+        background:
+            rgba(239, 68, 68, 0.18);
+
+        color:
+            #f87171;
+
+        border:
+            1px solid rgba(239, 68, 68, 0.35);
     }
 
     .uploader-badge {
         bottom: 12px;
+
         left: 12px;
-        background: rgba(0, 0, 0, 0.65);
-        color: #cbd5e1;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        background:
+            rgba(0, 0, 0, 0.55);
+
+        color:
+            #cbd5e1;
+
+        border:
+            1px solid rgba(255, 255, 255, 0.13);
     }
 
-    /* Card Content */
+
+    /* =========================================================
+       CARD BODY
+    ========================================================= */
+
     .card-body-custom {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
+        padding:
+            18px;
+
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        flex-grow:
+            1;
     }
 
     .product-title {
-        font-size: 15px;
-        font-weight: 800;
-        color: #ffffff;
-        margin-bottom: 14px;
-        line-height: 1.4;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 42px;
+        font-size:
+            15px;
+
+        font-weight:
+            800;
+
+        color:
+            #ffffff;
+
+        margin:
+            0 0 14px;
+
+        line-height:
+            1.4;
+
+        display:
+            -webkit-box;
+
+        -webkit-line-clamp:
+            2;
+
+        -webkit-box-orient:
+            vertical;
+
+        overflow:
+            hidden;
+
+        min-height:
+            42px;
     }
 
-    /* Box Pricing */
+
+    /* =========================================================
+       PRICE
+    ========================================================= */
+
     .price-container {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 14px;
-        padding: 10px 14px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 18px;
+        background:
+            rgba(255, 255, 255, 0.035);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.06);
+
+        border-radius:
+            13px;
+
+        padding:
+            10px 13px;
+
+        display:
+            flex;
+
+        justify-content:
+            space-between;
+
+        align-items:
+            center;
+
+        gap:
+            12px;
+
+        margin-bottom:
+            17px;
+    }
+
+    .price-item {
+        min-width:
+            0;
     }
 
     .price-label {
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        color: var(--text-muted);
-        font-weight: 700;
+        display:
+            block;
+
+        font-size:
+            9px;
+
+        text-transform:
+            uppercase;
+
+        letter-spacing:
+            0.8px;
+
+        color:
+            var(--text-muted);
+
+        font-weight:
+            700;
+
+        margin-bottom:
+            2px;
     }
 
     .price-val-buy {
-        font-size: 13px;
-        font-weight: 600;
-        color: #94a3b8;
+        font-size:
+            12px;
+
+        font-weight:
+            600;
+
+        color:
+            #94a3b8;
+
+        white-space:
+            nowrap;
     }
 
     .price-val-sell {
-        font-size: 15px;
-        font-weight: 800;
-        color: var(--accent-emerald);
+        font-size:
+            14px;
+
+        font-weight:
+            800;
+
+        color:
+            #34d399;
+
+        white-space:
+            nowrap;
     }
 
-    /* Buttons Action Group */
+
+    /* =========================================================
+       ACTION BUTTONS
+    ========================================================= */
+
     .action-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 8px;
-        margin-top: auto;
+        display:
+            grid;
+
+        grid-template-columns:
+            1fr 1fr 1fr;
+
+        gap:
+            7px;
+
+        margin-top:
+            auto;
+    }
+
+    .action-grid form {
+        margin:
+            0;
+
+        width:
+            100%;
     }
 
     .btn-act {
-        border: none !important;
-        font-size: 12px;
-        font-weight: 700;
-        padding: 9px 4px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        transition: all 0.2s ease;
-        text-decoration: none !important;
-        cursor: pointer;
+        width:
+            100%;
+
+        min-height:
+            36px;
+
+        border:
+            none !important;
+
+        font-size:
+            10px;
+
+        font-weight:
+            700;
+
+        padding:
+            8px 4px;
+
+        border-radius:
+            9px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        gap:
+            4px;
+
+        transition:
+            all 0.2s ease;
+
+        text-decoration:
+            none !important;
+
+        cursor:
+            pointer;
+    }
+
+    .btn-act:hover {
+        transform:
+            translateY(-1px);
     }
 
     .btn-act-view {
-        background: rgba(99, 102, 241, 0.15) !important;
-        color: #818cf8 !important;
+        background:
+            rgba(99, 102, 241, 0.13) !important;
+
+        color:
+            #818cf8 !important;
+
+        border:
+            1px solid rgba(99, 102, 241, 0.18) !important;
     }
+
     .btn-act-view:hover {
-        background: #6366f1 !important;
-        color: #ffffff !important;
+        background:
+            #6366f1 !important;
+
+        color:
+            #ffffff !important;
     }
 
     .btn-act-edit {
-        background: rgba(245, 158, 11, 0.15) !important;
-        color: #fbbf24 !important;
+        background:
+            rgba(245, 158, 11, 0.13) !important;
+
+        color:
+            #fbbf24 !important;
+
+        border:
+            1px solid rgba(245, 158, 11, 0.18) !important;
     }
+
     .btn-act-edit:hover {
-        background: #f59e0b !important;
-        color: #ffffff !important;
+        background:
+            #f59e0b !important;
+
+        color:
+            #ffffff !important;
     }
 
     .btn-act-delete {
-        background: rgba(239, 68, 68, 0.15) !important;
-        color: #f87171 !important;
-        width: 100%;
+        background:
+            rgba(239, 68, 68, 0.13) !important;
+
+        color:
+            #f87171 !important;
+
+        border:
+            1px solid rgba(239, 68, 68, 0.18) !important;
     }
+
     .btn-act-delete:hover {
-        background: #ef4444 !important;
-        color: #ffffff !important;
+        background:
+            #ef4444 !important;
+
+        color:
+            #ffffff !important;
+    }
+
+
+    /* =========================================================
+       EMPTY STATE
+    ========================================================= */
+
+    .empty-products {
+        grid-column:
+            1 / -1;
+
+        text-align:
+            center;
+
+        background:
+            rgba(17, 24, 39, 0.75);
+
+        border:
+            1px dashed rgba(255, 255, 255, 0.12);
+
+        border-radius:
+            19px;
+
+        padding:
+            55px 20px;
+    }
+
+    .empty-icon {
+        font-size:
+            48px;
+
+        margin-bottom:
+            10px;
+
+        opacity:
+            0.85;
+    }
+
+    .empty-title {
+        color:
+            #ffffff;
+
+        font-size:
+            16px;
+
+        font-weight:
+            800;
+
+        margin-bottom:
+            5px;
+    }
+
+    .empty-text {
+        color:
+            #64748b;
+
+        font-size:
+            12px;
+
+        margin:
+            0;
+    }
+
+
+    /* =========================================================
+       PAGINATION
+    ========================================================= */
+
+    .pagination {
+        margin-bottom:
+            0;
+    }
+
+    .pagination .page-link {
+        background:
+            rgba(255, 255, 255, 0.045);
+
+        border-color:
+            rgba(255, 255, 255, 0.08);
+
+        color:
+            #cbd5e1;
+    }
+
+    .pagination .page-link:hover {
+        background:
+            rgba(16, 185, 129, 0.12);
+
+        color:
+            #6ee7b7;
+
+        border-color:
+            rgba(16, 185, 129, 0.25);
+    }
+
+    .pagination .page-item.active .page-link {
+        background:
+            #10b981;
+
+        border-color:
+            #10b981;
+
+        color:
+            #ffffff;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 768px) {
+
+        .product-page {
+            padding-top:
+                18px;
+
+            padding-bottom:
+                35px;
+        }
+
+        .header-box {
+            padding:
+                22px;
+
+            border-radius:
+                18px;
+        }
+
+        .page-title {
+            font-size:
+                23px;
+        }
+
+        .btn-create {
+            width:
+                100%;
+        }
+
+        .search-container {
+            max-width:
+                100%;
+        }
+
+        .product-grid {
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(220px, 1fr)
+                );
+
+            gap:
+                16px;
+        }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+        .container-fluid.product-page {
+            padding-left:
+                12px !important;
+
+            padding-right:
+                12px !important;
+        }
+
+        .header-box {
+            padding:
+                19px;
+
+            border-radius:
+                16px;
+        }
+
+        .brand-pill {
+            font-size:
+                9px;
+        }
+
+        .page-title {
+            font-size:
+                21px;
+        }
+
+        .page-subtitle {
+            font-size:
+                11px;
+        }
+
+        .search-container {
+            padding-left:
+                11px;
+        }
+
+        .search-input {
+            font-size:
+                12px;
+        }
+
+        .btn-search {
+            padding:
+                8px 11px;
+
+            font-size:
+                10px;
+        }
+
+        .product-grid {
+            grid-template-columns:
+                1fr;
+
+            gap:
+                15px;
+        }
+
+        .card-img-box {
+            height:
+                245px;
+        }
+
+        .card-body-custom {
+            padding:
+                16px;
+        }
+
+        .product-title {
+            font-size:
+                14px;
+        }
+
+        .price-container {
+            padding:
+                10px 11px;
+        }
+
+        .price-val-buy {
+            font-size:
+                11px;
+        }
+
+        .price-val-sell {
+            font-size:
+                13px;
+        }
+
+        .btn-act {
+            font-size:
+                10px;
+
+            min-height:
+                35px;
+        }
+
     }
 </style>
 
-<div class="container-fluid py-4 px-md-4">
 
-    <div class="header-box d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+<div class="container-fluid product-page px-md-4">
+
+    {{-- =====================================================
+         HEADER
+    ====================================================== --}}
+
+    <div
+        class="
+            header-box
+            d-flex
+            flex-column
+            flex-md-row
+            justify-content-between
+            align-items-md-center
+            gap-3
+            mb-4
+        "
+    >
+
         <div>
-            <span class="brand-pill mb-2">👕 REMON THRIFT HOUSE</span>
-            <h2 class="fw-bold text-white mb-1" style="font-size: 24px;">Katalog Produk</h2>
-            <p class="text-muted mb-0" style="font-size: 13px;">Kelola stok dan daftar harga koleksi thrift secara real-time.</p>
+
+            <span class="brand-pill">
+                👕 REMON THRIFT HOUSE
+            </span>
+
+            <h2 class="page-title">
+                Katalog Produk
+            </h2>
+
+            <p class="page-subtitle">
+                Kelola stok dan daftar harga koleksi thrift secara real-time.
+            </p>
+
         </div>
 
+
         <div>
-            <a href="{{ route('produk.create') }}" class="btn btn-create d-inline-flex align-items-center gap-2">
-                <span class="fs-5">+</span> Tambah Produk Baru
+
+            <a
+                href="{{ route('produk.create') }}"
+                class="btn btn-create"
+            >
+
+                <span class="plus-icon">
+                    +
+                </span>
+
+                Tambah Produk Baru
+
             </a>
+
         </div>
+
     </div>
+
+
+    {{-- =====================================================
+         SUCCESS MESSAGE
+    ====================================================== --}}
 
     @if(session('success'))
-        <div class="alert alert-success border-0 fade show mb-4 d-flex align-items-center gap-2" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-radius: 14px;" role="alert">
-            <span>✓</span>
-            <div>{{ session('success') }}</div>
+
+        <div
+            class="
+                alert
+                success-alert
+                border-0
+                fade
+                show
+                mb-4
+                d-flex
+                align-items-center
+                gap-2
+            "
+            role="alert"
+        >
+
+            <span>
+                ✓
+            </span>
+
+            <div>
+                {{ session('success') }}
+            </div>
+
         </div>
+
     @endif
 
-    <div class="mb-4">
-        <form action="{{ route('produk.index') }}" method="GET" class="d-flex max-w-md">
-            <div class="search-container d-flex align-items-center w-100" style="max-width: 420px;">
-                <span class="text-muted me-2">🔍</span>
-                <input type="text" name="search" value="{{ request('search') }}" class="form-control search-input" placeholder="Cari nama produk thrift...">
-                <button type="submit" class="btn btn-sm btn-success rounded-pill px-3" style="background: var(--accent-emerald); border: none; font-weight: 700;">
+
+    {{-- =====================================================
+         SEARCH
+    ====================================================== --}}
+
+    <div class="search-area">
+
+        <form
+            action="{{ route('produk.index') }}"
+            method="GET"
+        >
+
+            <div class="search-container">
+
+                <span class="search-icon">
+                    🔍
+                </span>
+
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    class="form-control search-input"
+                    placeholder="Cari nama produk thrift..."
+                >
+
+
+                <button
+                    type="submit"
+                    class="btn btn-search"
+                >
                     Cari
                 </button>
+
             </div>
+
         </form>
+
     </div>
+
+
+    {{-- =====================================================
+         PRODUCT GRID
+    ====================================================== --}}
 
     <div class="product-grid">
+
         @forelse($produk as $item)
-            @php 
+
+            @php
                 $stok = $item->stok ?? $item->stock ?? 0;
+
+                $namaProduk =
+                    $item->nama_produk
+                    ?? $item->nama
+                    ?? 'NAMA PRODUK';
+
+                $hargaJual =
+                    $item->harga_jual
+                    ?? $item->harga
+                    ?? 0;
             @endphp
-            
+
+
+            {{-- =================================================
+                 PRODUCT CARD
+            ================================================== --}}
+
             <div class="product-card">
+
+
+                {{-- =================================================
+                     IMAGE
+                ================================================== --}}
+
                 <div class="card-img-box">
+
                     @if($item->foto)
-                        <img 
-                            src="{{ asset('storage/' . $item->foto) }}" 
-                            alt="{{ $item->nama_produk ?? 'Produk Thrift' }}"
+
+                        <img
+                            src="{{ asset('storage/' . $item->foto) }}"
+                            alt="{{ $namaProduk }}"
                             loading="lazy"
-                            onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300/0f172a/94a3b8?text=No+Image';">
-                    @else
-                        <div class="text-center text-muted">
-                            <div style="font-size: 36px;">👕</div>
-                            <span style="font-size: 11px;" class="fw-semibold">Tanpa Foto</span>
+                            onerror="
+                                this.onerror=null;
+                                this.style.display='none';
+                                this.nextElementSibling.style.display='flex';
+                            "
+                        >
+
+                        <div
+                            class="no-image"
+                            style="display: none;"
+                        >
+
+                            <div class="no-image-icon">
+                                👕
+                            </div>
+
+                            <div class="no-image-text">
+                                Foto tidak tersedia
+                            </div>
+
                         </div>
+
+                    @else
+
+                        <div class="no-image">
+
+                            <div class="no-image-icon">
+                                👕
+                            </div>
+
+                            <div class="no-image-text">
+                                Tanpa Foto
+                            </div>
+
+                        </div>
+
                     @endif
+
+
+                    {{-- STOCK BADGE --}}
 
                     @if($stok == 0)
-                        <span class="badge-float stock-badge-empty">Habis Total</span>
+
+                        <span
+                            class="
+                                badge-float
+                                stock-badge-empty
+                            "
+                        >
+                            ✕ Habis
+
+                        </span>
+
                     @elseif($stok <= 3)
-                        <span class="badge-float stock-badge-low">Sisa {{ $stok }}</span>
+
+                        <span
+                            class="
+                                badge-float
+                                stock-badge-low
+                            "
+                        >
+                            ⚠ Sisa {{ $stok }}
+
+                        </span>
+
                     @else
-                        <span class="badge-float stock-badge-normal">Stok: {{ $stok }}</span>
+
+                        <span
+                            class="
+                                badge-float
+                                stock-badge-normal
+                            "
+                        >
+                            ✓ Stok {{ $stok }}
+
+                        </span>
+
                     @endif
 
-                    <span class="badge-float uploader-badge">
-                        👤 {{ optional($item->user)->name ?? 'Admin' }}
+
+                    {{-- UPLOADER --}}
+
+                    <span
+                        class="
+                            badge-float
+                            uploader-badge
+                        "
+                    >
+
+                        👤
+                        {{ optional($item->user)->name ?? 'Admin' }}
+
                     </span>
+
                 </div>
+
+
+                {{-- =================================================
+                     CARD BODY
+                ================================================== --}}
 
                 <div class="card-body-custom">
-                    <h3 class="product-title" title="{{ $item->nama_produk ?? $item->nama }}">
-                        {{ $item->nama_produk ?? $item->nama ?? 'NAMA PRODUK' }}
+
+
+                    {{-- PRODUCT NAME --}}
+
+                    <h3
+                        class="product-title"
+                        title="{{ $namaProduk }}"
+                    >
+                        {{ $namaProduk }}
                     </h3>
 
+
+                    {{-- PRICE --}}
+
                     <div class="price-container">
-                        <div>
-                            <span class="price-label">Modal</span>
+
+                        <div class="price-item">
+
+                            <span class="price-label">
+                                Modal
+                            </span>
+
                             <div class="price-val-buy">
-                                Rp {{ number_format($item->harga_beli ?? 0, 0, ',', '.') }}
+
+                                Rp
+                                {{ number_format(
+                                    $item->harga_beli ?? 0,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) }}
+
                             </div>
+
                         </div>
-                        <div class="text-end">
-                            <span class="price-label">Harga Jual</span>
+
+
+                        <div class="price-item text-end">
+
+                            <span class="price-label">
+                                Harga Jual
+                            </span>
+
                             <div class="price-val-sell">
-                                Rp {{ number_format($item->harga_jual ?? $item->harga ?? 0, 0, ',', '.') }}
+
+                                Rp
+                                {{ number_format(
+                                    $hargaJual,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) }}
+
                             </div>
+
                         </div>
+
                     </div>
+
+
+                    {{-- =================================================
+                         ACTION BUTTONS
+                    ================================================== --}}
 
                     <div class="action-grid">
-                        <a href="{{ route('produk.show', $item) }}" class="btn-act btn-act-view" title="Lihat Detail">
-                            👁️ Detail
+
+
+                        {{-- DETAIL --}}
+
+                        <a
+                            href="{{ route('produk.show', $item) }}"
+                            class="
+                                btn-act
+                                btn-act-view
+                            "
+                            title="Lihat Detail Produk"
+                        >
+
+                            👁️
+                            Detail
+
                         </a>
 
-                        <a href="{{ route('produk.edit', $item) }}" class="btn-act btn-act-edit" title="Edit Data">
-                            ✏️ Edit
+
+                        {{-- EDIT --}}
+
+                        <a
+                            href="{{ route('produk.edit', $item) }}"
+                            class="
+                                btn-act
+                                btn-act-edit
+                            "
+                            title="Edit Produk"
+                        >
+
+                            ✏️
+                            Edit
+
                         </a>
 
-                        <form action="{{ route('produk.destroy', $item) }}" method="POST" class="d-inline m-0">
+
+                        {{-- DELETE --}}
+
+                        <form
+                            action="{{ route('produk.destroy', $item) }}"
+                            method="POST"
+                            class="d-inline m-0"
+                        >
+
                             @csrf
+
                             @method('DELETE')
-                            <button type="submit" class="btn-act btn-act-delete" onclick="return confirm('Yakin ingin menghapus produk ini?')" title="Hapus Produk">
-                                🗑️ Hapus
+
+                            <button
+                                type="submit"
+                                class="
+                                    btn-act
+                                    btn-act-delete
+                                "
+                                onclick="
+                                    return confirm(
+                                        'Yakin ingin menghapus produk ini?'
+                                    )
+                                "
+                                title="Hapus Produk"
+                            >
+
+                                🗑️
+                                Hapus
+
                             </button>
+
                         </form>
+
+
                     </div>
+
                 </div>
+
             </div>
+
+
         @empty
-            <div class="col-12 text-center py-5" style="grid-column: 1 / -1; background: var(--card-bg); border-radius: 20px; border: 1px dashed var(--border-color);">
-                <div class="py-4">
-                    <div style="font-size: 52px;" class="mb-2">🛍️</div>
-                    <h5 class="text-white fw-bold mb-1">Belum Ada Koleksi Produk</h5>
-                    <p class="text-muted small mb-0">Klik "+ Tambah Produk Baru" untuk menambahkan koleksi baju/barang thrift baru.</p>
+
+
+            {{-- =================================================
+                 EMPTY STATE
+            ================================================== --}}
+
+            <div class="empty-products">
+
+                <div class="empty-icon">
+                    🛍️
                 </div>
+
+                <h5 class="empty-title">
+                    Belum Ada Koleksi Produk
+                </h5>
+
+                <p class="empty-text">
+                    Klik "+ Tambah Produk Baru"
+                    untuk menambahkan koleksi thrift baru.
+                </p>
+
             </div>
+
+
         @endforelse
+
     </div>
 
+
+    {{-- =====================================================
+         PAGINATION
+    ====================================================== --}}
+
     @if(method_exists($produk, 'links'))
-        <div class="d-flex justify-content-center mt-5">
+
+        <div
+            class="
+                d-flex
+                justify-content-center
+                mt-5
+            "
+        >
+
             {{ $produk->appends(request()->query())->links() }}
+
         </div>
+
     @endif
+
 
 </div>
 
