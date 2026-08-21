@@ -500,7 +500,7 @@
             button.innerHTML = `
                 <span>Memproses...</span>
                 <i class="bi bi-arrow-repeat loading-icon"></i>
-            `;
+            
         });
     </script>
 

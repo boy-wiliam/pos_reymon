@@ -113,6 +113,12 @@
                     Penjualan
                 </a>
             </li>
+            <!-- MENU TENTANG -->
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('tentang*') ? 'active' : '' }}" href="{{ route('tentang') }}">
+                    Tentang
+                </a>
+            </li>
         </ul>
 
         <form action="{{ route('logout') }}" method="POST" class="d-flex mt-3 mt-lg-0">
