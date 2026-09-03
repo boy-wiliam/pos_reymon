@@ -2,17 +2,36 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Role;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      */
     public function run(): void
     {
-        User::factory()->count(5)->create();
+        // Ambil role yang sudah dibuat oleh RoleSeeder
+        $adminRole = Role::where('name', 'admin')->first();
+        $kasirRole = Role::where('name', 'kasir')->first();
+
+        // User Admin
+        User::create([
+            'role_id' => $adminRole->id,
+            'name' => 'Administrator',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        // User Kasir
+        User::create([
+            'role_id' => $kasirRole->id,
+            'name' => 'Kasir',
+            'email' => 'kasir@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
     }
 }

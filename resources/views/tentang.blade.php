@@ -69,7 +69,7 @@
             <div class="col-lg-3 text-center">
                 <div class="product-avatar-ring rounded-circle mx-auto d-flex align-items-center justify-content-center overflow-hidden p-2">
                     <img 
-                        src="{{ asset('images/produk-thrift.jpg') }}" 
+                        src="{{ asset('images/thrift.jpg') }}" 
                         alt="Remon Thrift House" 
                         class="rounded-circle w-100 h-100"
                         style="object-fit: cover;"

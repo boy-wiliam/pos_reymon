@@ -52,6 +52,20 @@
     box-shadow: 0 5px 15px rgba(16, 185, 129, .4);
 }
 
+/* JAM / WAKTU */
+.clock-box {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #d1fae5;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
 /* LOGOUT */
 .logout-btn {
     border: none;
@@ -121,14 +135,37 @@
             </li>
         </ul>
 
-        <form action="{{ route('logout') }}" method="POST" class="d-flex mt-3 mt-lg-0">
-            @csrf
-            <button type="submit" class="logout-btn w-100">
-                Logout
-            </button>
-        </form>
+        <!-- WAKTU & LOGOUT -->
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+            <div class="clock-box">
+                <span>🕒</span>
+                <span id="live-clock">--:--:-- WIB</span>
+            </div>
+
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="logout-btn">
+                    Logout
+                </button>
+            </form>
+        </div>
     </div>
 
 </div>
 
 </nav>
+
+<!-- SCRIPT WAKTU REAL-TIME -->
+<script>
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    document.getElementById('live-clock').textContent = `${hours}:${minutes}:${seconds} WIB`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
